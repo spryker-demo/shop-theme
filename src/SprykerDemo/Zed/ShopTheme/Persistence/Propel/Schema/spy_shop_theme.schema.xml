@@ -1,9 +1,5 @@
 <?xml version="1.0"?>
-<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          name="zed"
-          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
-          namespace="Orm\Zed\ShopTheme\Persistence"
-          package="src.Orm.Zed.ShopTheme.Persistence">
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\ShopTheme\Persistence" package="src.Orm.Zed.ShopTheme.Persistence">
 
     <table name="spy_shop_theme">
         <column name="id_shop_theme" type="INTEGER" autoIncrement="true" required="true" primaryKey="true"/>
