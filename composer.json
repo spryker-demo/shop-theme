@@ -6,7 +6,7 @@
     "require": {
         "php": ">=8.0",
         "spryker/kernel": "^3.70.0",
-        "spryker/propel-orm": "*",
+        "spryker/propel-orm": "^1.17.0",
         "spryker/store": "^1.16.1",
         "spryker/util-encoding": "^2.1.1"
     },
