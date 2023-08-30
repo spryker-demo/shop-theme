@@ -33,17 +33,21 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
      */
     public function getActiveTheme(StoreTransfer $storeTransfer): ShopThemeTransfer
     {
-        $shopThemeEntity = $this->getFactory()
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeStoreQuery $shopThemeEntityQuery */
+        $shopThemeEntityQuery = $this->getFactory()
             ->createShopThemeQuery()
             ->joinSpyShopThemeStore()
             ->useSpyShopThemeStoreQuery()
                 ->joinSpyStore()
                 ->useSpyStoreQuery()
                     ->filterByName($storeTransfer->getName())
-                ->endUse()
-            ->endUse()
-            ->filterByStatus(static::ACTIVE)
-            ->findOne();
+                ->endUse();
+
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeEntityQuery */
+        $shopThemeEntityQuery = $shopThemeEntityQuery->endUse();
+        $shopThemeEntityQuery = $shopThemeEntityQuery->filterByStatus(static::ACTIVE);
+
+        $shopThemeEntity = $shopThemeEntityQuery->findOne();
 
         if (!$shopThemeEntity) {
             return new ShopThemeTransfer();
@@ -64,16 +68,20 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
      */
     public function findShopThemeById(int $idShopTheme): ?ShopThemeTransfer
     {
-        $shopThemeEntity = $this->getFactory()
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeStoreQuery $shopThemeEntityQuery */
+        $shopThemeEntityQuery = $this->getFactory()
             ->createShopThemeQuery()
             ->joinSpyShopThemeStore()
             ->useSpyShopThemeStoreQuery()
                 ->joinSpyStore()
                 ->useSpyStoreQuery()
-                ->endUse()
-            ->endUse()
-            ->filterByIdShopTheme($idShopTheme)
-            ->findOne();
+                ->endUse();
+
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeEntityQuery */
+        $shopThemeEntityQuery = $shopThemeEntityQuery->endUse();
+        $shopThemeEntityQuery = $shopThemeEntityQuery->filterByIdShopTheme($idShopTheme);
+
+        $shopThemeEntity = $shopThemeEntityQuery->findOne();
 
         if (!$shopThemeEntity) {
             return null;

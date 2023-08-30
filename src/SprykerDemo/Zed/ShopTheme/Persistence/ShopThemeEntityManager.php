@@ -102,16 +102,19 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
         $responseTransfer = new ActivateShopThemeActionResponseTransfer();
         $responseTransfer->setIsSuccess(true);
 
-        $shopThemeEntity = $this->getFactory()
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeStoreQuery $shopThemeEntityQuery */
+        $shopThemeEntityQuery = $this->getFactory()
             ->createShopThemeQuery()
             ->joinSpyShopThemeStore()
             ->useSpyShopThemeStoreQuery()
                 ->joinSpyStore()
                 ->useSpyStoreQuery()
-                ->endUse()
-            ->endUse()
-            ->filterByIdShopTheme($idShopTheme)
-            ->findOne();
+                ->endUse();
+
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeEntityQuery */
+        $shopThemeEntityQuery = $shopThemeEntityQuery->endUse();
+        $shopThemeEntityQuery = $shopThemeEntityQuery->filterByIdShopTheme($idShopTheme);
+        $shopThemeEntity = $shopThemeEntityQuery->findOne();
 
         if (!$shopThemeEntity) {
             $responseTransfer->setIsSuccess(false);
@@ -168,7 +171,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
      */
     protected function saveShopThemeStoreRelations(ShopThemeTransfer $currentShopThemeTransfer, ShopThemeTransfer $newShopThemeTransfer): void
     {
-        $idShopTheme = $currentShopThemeTransfer->getIdShopTheme();
+        $idShopTheme = $currentShopThemeTransfer->getIdShopThemeOrFail();
         $currentStoreAssignment = $currentShopThemeTransfer->getStoreRelation() ?? new StoreRelationTransfer();
         $newStoreAssignment = $newShopThemeTransfer->getStoreRelation() ?? new StoreRelationTransfer();
 
@@ -221,7 +224,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
 
     /**
      * @param int $idShopTheme
-     * @param array $storeIdsToAdd
+     * @param array<int> $storeIdsToAdd
      *
      * @return void
      */
@@ -243,7 +246,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
 
     /**
      * @param int $idShopTheme
-     * @param array $storeIdsToDelete
+     * @param array<int> $storeIdsToDelete
      *
      * @return void
      */
@@ -268,18 +271,21 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
      */
     protected function findConflictingShopTheme(ShopThemeTransfer $shopThemeEntity): ?ShopThemeTransfer
     {
-        $shopThemeEntities = $this->getFactory()
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeStoreQuery $shopThemeEntitiesQuery */
+        $shopThemeEntitiesQuery = $this->getFactory()
             ->createShopThemeQuery()
             ->leftJoinWithSpyShopThemeStore()
             ->useSpyShopThemeStoreQuery()
                 ->leftJoinWithSpyStore()
                 ->useSpyStoreQuery()
                     ->filterByIdStore_In($shopThemeEntity->getStoreRelation()->getIdStores())
-                ->endUse()
-            ->endUse()
-            ->filterByStatus(static::ACTIVE)
-            ->filterByIdShopTheme($shopThemeEntity->getIdShopTheme(), Criteria::NOT_IN)
-            ->find();
+                ->endUse();
+
+        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeEntitiesQuery */
+        $shopThemeEntitiesQuery = $shopThemeEntitiesQuery->endUse();
+        $shopThemeEntitiesQuery->filterByStatus(static::ACTIVE)
+            ->filterByIdShopTheme($shopThemeEntity->getIdShopTheme(), Criteria::NOT_IN);
+        $shopThemeEntities = $shopThemeEntitiesQuery->find();
 
         if (!$shopThemeEntities->count()) {
             return null;

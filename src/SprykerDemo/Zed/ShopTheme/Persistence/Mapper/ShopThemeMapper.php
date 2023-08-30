@@ -67,9 +67,11 @@ class ShopThemeMapper
         $shopThemeTransfer->setIdShopTheme($shopThemeEntity->getIdShopTheme());
         $shopThemeTransfer->setName($shopThemeEntity->getName());
         $shopThemeTransfer->setStatus($shopThemeEntity->getStatus());
-        $shopThemeTransfer->setData($shopThemeEntity->getData()
+        /** @var array<mixed> $decodedData*/
+        $decodedData = $shopThemeEntity->getData()
             ? $this->utilEncodingService->decodeJson($shopThemeEntity->getData(), true)
-            : []);
+            : [];
+        $shopThemeTransfer->setData($decodedData);
 
         return $shopThemeTransfer;
     }
