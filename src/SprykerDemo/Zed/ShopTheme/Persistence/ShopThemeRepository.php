@@ -7,8 +7,10 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Persistence;
 
+use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
+use Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -19,79 +21,147 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
     /**
      * @var string
      */
-    protected const ACTIVE = 'active';
+    protected const COLUMN_NAME_FK_STORE = 'fkStore';
 
     /**
-     * @var string
-     */
-    protected const THEME = 'theme';
-
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
      */
-    public function getActiveTheme(StoreTransfer $storeTransfer): ShopThemeTransfer
+    public function findShopTheme(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): ?ShopThemeTransfer
     {
-        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeStoreQuery $shopThemeEntityQuery */
-        $shopThemeEntityQuery = $this->getFactory()
-            ->createShopThemeQuery()
-            ->joinSpyShopThemeStore()
-            ->useSpyShopThemeStoreQuery()
-                ->joinSpyStore()
-                ->useSpyStoreQuery()
-                    ->filterByName($storeTransfer->getName())
+        $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
+
+        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
+            $shopThemeQuery->joinSpyShopThemeStore()
+                ->useSpyShopThemeStoreQuery()
+                    ->joinSpyStore()
                 ->endUse();
+        }
 
-        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeEntityQuery */
-        $shopThemeEntityQuery = $shopThemeEntityQuery->endUse();
-        $shopThemeEntityQuery = $shopThemeEntityQuery->filterByStatus(static::ACTIVE);
-
-        $shopThemeEntity = $shopThemeEntityQuery->findOne();
+        $shopThemeEntity = $shopThemeQuery->findOne();
 
         if (!$shopThemeEntity) {
-            return new ShopThemeTransfer();
+            return null;
+        }
+
+        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
+            return $this->getFactory()
+                ->createShopThemeMapper()
+                ->mapShopThemeEntityToShopThemeTransferWithStoreRelation(
+                    $shopThemeEntity,
+                    new ShopThemeTransfer(),
+                );
         }
 
         return $this->getFactory()
             ->createShopThemeMapper()
-            ->mapShopThemeEntityToShopThemeTransferWithStoreRelation(
+            ->mapShopThemeEntityToShopThemeTransfer(
                 $shopThemeEntity,
                 new ShopThemeTransfer(),
             );
     }
 
     /**
-     * @param int $idShopTheme
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
+     * @return array<\Generated\Shared\Transfer\ShopThemeTransfer>
      */
-    public function findShopThemeById(int $idShopTheme): ?ShopThemeTransfer
+    public function getShopThemes(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array
     {
-        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeStoreQuery $shopThemeEntityQuery */
-        $shopThemeEntityQuery = $this->getFactory()
-            ->createShopThemeQuery()
-            ->joinSpyShopThemeStore()
-            ->useSpyShopThemeStoreQuery()
-                ->joinSpyStore()
-                ->useSpyStoreQuery()
+        $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
+
+        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
+            $shopThemeQuery
+                ->joinWithSpyShopThemeStore()
+                ->useSpyShopThemeStoreQuery()
+                    ->joinWithSpyStore()
                 ->endUse();
-
-        /** @var \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeEntityQuery */
-        $shopThemeEntityQuery = $shopThemeEntityQuery->endUse();
-        $shopThemeEntityQuery = $shopThemeEntityQuery->filterByIdShopTheme($idShopTheme);
-
-        $shopThemeEntity = $shopThemeEntityQuery->findOne();
-
-        if (!$shopThemeEntity) {
-            return null;
         }
 
-        return $this->getFactory()
-            ->createShopThemeMapper()
-            ->mapShopThemeEntityToShopThemeTransferWithStoreRelation(
-                $shopThemeEntity,
-                new ShopThemeTransfer(),
-            );
+        $shopThemeEntities = $shopThemeQuery->find()->getData();
+
+        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
+            return $this->getFactory()->createShopThemeMapper()->mapShopThemeEntitiesToShopThemeTransfersWithStoreRelation($shopThemeEntities);
+        }
+
+        return $this->getFactory()->createShopThemeMapper()->mapShopThemeEntitiesToShopThemeTransfers($shopThemeEntities);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return array<int>
+     */
+    public function getShopThemeIds(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array
+    {
+        $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
+
+        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
+            $shopThemeQuery
+                ->joinWithSpyShopThemeStore()
+                ->useSpyShopThemeStoreQuery()
+                    ->joinWithSpyStore()
+                ->endUse();
+        }
+
+        return $shopThemeQuery->find()->getColumnValues();
+    }
+
+    /**
+     * @param int $shopThemeId
+     *
+     * @return array<int>
+     */
+    public function getShopThemeStoreIds(int $shopThemeId): array
+    {
+        $shopThemeStoreQuery = $this->getFactory()
+            ->createShopThemeStoreQuery()
+            ->filterByFkShopTheme($shopThemeId);
+
+        return $shopThemeStoreQuery->find()->getColumnValues(static::COLUMN_NAME_FK_STORE);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     * @param \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery $shopThemeQuery
+     *
+     * @return \Orm\Zed\ShopTheme\Persistence\SpyShopThemeQuery
+     */
+    protected function applyFilters(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer, SpyShopThemeQuery $shopThemeQuery): SpyShopThemeQuery
+    {
+        if ($shopThemeCriteriaTransfer->getStatus()) {
+            $shopThemeQuery->filterByStatus($shopThemeCriteriaTransfer->getStatus());
+        }
+
+        if ($shopThemeCriteriaTransfer->getStoreName()) {
+            $shopThemeQuery
+                ->useSpyShopThemeStoreQuery()
+                    ->useSpyStoreQuery()
+                        ->filterByName($shopThemeCriteriaTransfer->getStoreName())
+                    ->endUse()
+                ->endUse();
+        }
+
+        if ($shopThemeCriteriaTransfer->getStoreIds()) {
+            $shopThemeQuery
+                ->useSpyShopThemeStoreQuery()
+                    ->filterByIdShopThemeStore_In($shopThemeCriteriaTransfer->getStoreIds())
+                ->endUse();
+        }
+
+        if ($shopThemeCriteriaTransfer->getShopThemeIds()) {
+            $shopThemeQuery->filterByIdShopTheme_In($shopThemeCriteriaTransfer->getShopThemeIds());
+        }
+
+        if ($shopThemeCriteriaTransfer->getIdShopTheme()) {
+            $shopThemeQuery->filterByIdShopTheme($shopThemeCriteriaTransfer->getIdShopTheme());
+        }
+
+        if ($shopThemeCriteriaTransfer->getExcludedShopThemeIds()) {
+            $shopThemeQuery->filterByIdShopTheme($shopThemeCriteriaTransfer->getExcludedShopThemeIds(), Criteria::NOT_IN);
+        }
+
+        return $shopThemeQuery;
     }
 }

@@ -8,6 +8,8 @@
 namespace SprykerDemo\Zed\ShopTheme\Business;
 
 use Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer;
+use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
+use Generated\Shared\Transfer\ShopThemeResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreRelationTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
@@ -25,13 +27,13 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @api
      *
-     * @param int $idShopTheme
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
      *
      * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
      */
-    public function findShopThemeById(int $idShopTheme): ?ShopThemeTransfer
+    public function findShopTheme(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): ?ShopThemeTransfer
     {
-        return $this->getRepository()->findShopThemeById($idShopTheme);
+        return $this->getRepository()->findShopTheme($shopThemeCriteriaTransfer);
     }
 
     /**
@@ -39,15 +41,43 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return array<\Generated\Shared\Transfer\ShopThemeTransfer>
      */
-    public function getActiveTheme(?StoreTransfer $storeTransfer = null): ShopThemeTransfer
+    public function getShopThemes(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array
+    {
+        return $this->getRepository()->getShopThemes($shopThemeCriteriaTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return array<int>
+     */
+    public function getShopThemeIds(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array
+    {
+        return $this->getRepository()->getShopThemeIds($shopThemeCriteriaTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
+     *
+     * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
+     */
+    public function findActiveTheme(StoreTransfer $storeTransfer): ?ShopThemeTransfer
     {
         return $this->getFactory()
             ->createActiveThemeReader()
-            ->getActiveTheme($storeTransfer);
+            ->findActiveTheme($storeTransfer);
     }
 
     /**
@@ -57,11 +87,11 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeResponseTransfer
      */
-    public function saveShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeTransfer
+    public function saveShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeResponseTransfer
     {
-        return $this->getEntityManager()->saveShopTheme($shopThemeTransfer);
+        return $this->getFactory()->createShopThemeWriter()->saveShopTheme($shopThemeTransfer);
     }
 
     /**
@@ -103,7 +133,7 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      */
     public function activateTheme(int $idShopTheme): ActivateShopThemeActionResponseTransfer
     {
-        return $this->getEntityManager()->activate($idShopTheme);
+        return $this->getFactory()->createShopThemeActivator()->activate($idShopTheme);
     }
 
     /**

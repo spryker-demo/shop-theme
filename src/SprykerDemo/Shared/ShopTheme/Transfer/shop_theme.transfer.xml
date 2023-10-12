@@ -7,6 +7,47 @@
         <property name="data" type="array"/>
         <property name="status" type="string"/>
         <property name="storeRelation" type="StoreRelation"/>
+        <property name="shopThemeData" type="ShopThemeData"/>
+    </transfer>
+
+    <transfer name="ShopThemeData">
+        <property name="headerColor" type="string"/>
+        <property name="headerColorEnabled" type="bool"/>
+        <property name="headerTopbarColor" type="string"/>
+        <property name="headerTopbarColorEnabled" type="bool"/>
+        <property name="headerNavigationBackground" type="string"/>
+        <property name="headerNavigationBackgroundEnabled" type="bool"/>
+        <property name="headerNavigationTextColor" type="string"/>
+        <property name="headerNavigationTextColorEnabled" type="bool"/>
+        <property name="footerColor" type="string"/>
+        <property name="footerColorEnabled" type="bool"/>
+        <property name="footerBottomLineBackground" type="string"/>
+        <property name="footerBottomLineBackgroundEnabled" type="bool"/>
+        <property name="footerBottomLineTextColor" type="string"/>
+        <property name="footerBottomLineTextColorEnabled" type="bool"/>
+        <property name="buttonPrimaryColor" type="string"/>
+        <property name="buttonPrimaryColorEnabled" type="bool"/>
+        <property name="buttonSecondaryColor" type="string"/>
+        <property name="buttonSecondaryColorEnabled" type="bool"/>
+        <property name="logoUrl" type="string"/>
+        <property name="backofficeLogoUrl" type="string"/>
+        <property name="mpLogoUrl" type="string"/>
+        <property name="logoFile" type="File"/>
+        <property name="backofficeLogoFile" type="File"/>
+        <property name="mpLogoFile" type="File"/>
+        <property name="deleteLogo" type="bool"/>
+        <property name="deleteMpLogo" type="bool"/>
+        <property name="deleteBackofficeLogo" type="bool"/>
+    </transfer>
+
+    <transfer name="ShopThemeCriteria">
+        <property name="idShopTheme" type="int"/>
+        <property name="shopThemeIds" type="int[]" singular="shopThemeId"/>
+        <property name="storeIds" type="int[]" singular="storeId"/>
+        <property name="storeName" type="string"/>
+        <property name="status" type="string"/>
+        <property name="excludedShopThemeIds" type="int[]" singular="excludedShopThemeId"/>
+        <property name="withStoreRelations" type="bool"/>
     </transfer>
 
     <transfer name="StoreRelation">
@@ -25,4 +66,14 @@
         <property name="conflictingShopTheme" type="ShopTheme"/>
     </transfer>
 
+    <transfer name="ShopThemeResponse">
+        <property name="isSuccess" type="bool"/>
+        <property name="errorMessage" type="string"/>
+    </transfer>
+
+    <transfer name="File">
+        <property name="fileName" type="string"/>
+        <property name="fileContent" type="string"/>
+        <property name="contentType" type="string"/>
+    </transfer>
 </transfers>

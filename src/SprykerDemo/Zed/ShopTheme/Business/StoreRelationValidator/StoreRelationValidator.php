@@ -7,8 +7,8 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Business\StoreRelationValidator;
 
+use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\StoreRelationTransfer;
-use Spryker\Zed\Store\Business\StoreFacadeInterface;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface;
 
 class StoreRelationValidator implements StoreRelationValidatorInterface
@@ -19,24 +19,15 @@ class StoreRelationValidator implements StoreRelationValidatorInterface
     public const ACTIVE = 'active';
 
     /**
-     * @var \Spryker\Zed\Store\Business\StoreFacadeInterface
-     */
-    protected StoreFacadeInterface $storeFacade;
-
-    /**
      * @var \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface
      */
     protected ShopThemeRepositoryInterface $repository;
 
     /**
-     * @param \Spryker\Zed\Store\Business\StoreFacadeInterface $storeFacade
      * @param \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface $repository
      */
-    public function __construct(
-        StoreFacadeInterface $storeFacade,
-        ShopThemeRepositoryInterface $repository
-    ) {
-        $this->storeFacade = $storeFacade;
+    public function __construct(ShopThemeRepositoryInterface $repository)
+    {
         $this->repository = $repository;
     }
 
@@ -48,22 +39,43 @@ class StoreRelationValidator implements StoreRelationValidatorInterface
      */
     public function validateStoreRelationForShopThemeByShopThemeId(int $shopThemeId, StoreRelationTransfer $storeRelation): bool
     {
-        $shopThemeTransfer = $this->repository->findShopThemeById($shopThemeId);
+        $shopThemeTransfer = $this->repository->findShopTheme(
+            (new ShopThemeCriteriaTransfer())->setStatus(static::ACTIVE)
+                ->setWithStoreRelations(true)
+                ->setIdShopTheme($shopThemeId),
+        );
+
         if (!$shopThemeTransfer) {
             return true;
         }
-        if ($shopThemeTransfer->getStatus() !== static::ACTIVE) {
+
+        $storeIds = $this->extractStoreIds($shopThemeTransfer->getStoreRelation());
+        $shopThemeTransfer = $this->repository->findShopTheme(
+            (new ShopThemeCriteriaTransfer())->setStatus(static::ACTIVE)
+                ->setExcludedShopThemeIds([$shopThemeId])
+                ->setStoreIds($storeIds),
+        );
+
+        if (!$shopThemeTransfer) {
             return true;
         }
 
-        foreach ($storeRelation->getIdStores() as $idStore) {
-            $storeTransfer = $this->storeFacade->getStoreById($idStore);
-            $activeShopThemeTransfer = $this->repository->getActiveTheme($storeTransfer);
-            if ($activeShopThemeTransfer->getIdShopTheme() && $activeShopThemeTransfer->getIdShopTheme() !== $shopThemeId) {
-                return false;
-            }
+        return false;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\StoreRelationTransfer $storeRelationTransfer
+     *
+     * @return array<int>
+     */
+    protected function extractStoreIds(StoreRelationTransfer $storeRelationTransfer): array
+    {
+        $storeIds = [];
+
+        foreach ($storeRelationTransfer->getStores() as $store) {
+            $storeIds[] = $store->getIdStore();
         }
 
-        return true;
+        return $storeIds;
     }
 }

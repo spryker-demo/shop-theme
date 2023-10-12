@@ -20,7 +20,12 @@ class ShopThemeDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
-    public const FACADE_STORE = 'FACADE_STORE';
+    public const SERVICE_FILESYSTEM = 'SERVICE_FILESYSTEM';
+
+    /**
+     * @var string
+     */
+    public const SERVICE_URL_BUILDER = 'SERVICE_URL_BUILDER';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -29,7 +34,8 @@ class ShopThemeDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
-        $container = $this->addStoreFacade($container);
+        $container = $this->addUrlBuilderService($container);
+        $container = $this->addFilesystemService($container);
 
         return $container;
     }
@@ -65,10 +71,24 @@ class ShopThemeDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addStoreFacade(Container $container): Container
+    protected function addFilesystemService(Container $container): Container
     {
-        $container->set(static::FACADE_STORE, function (Container $container) {
-            return $container->getLocator()->store()->facade();
+        $container->set(static::SERVICE_FILESYSTEM, function (Container $container) {
+            return $container->getLocator()->fileSystem()->service();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUrlBuilderService(Container $container): Container
+    {
+        $container->set(static::SERVICE_URL_BUILDER, function (Container $container) {
+            return $container->getLocator()->urlBuilder()->service();
         });
 
         return $container;

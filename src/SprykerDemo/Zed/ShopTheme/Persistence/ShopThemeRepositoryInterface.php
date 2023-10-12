@@ -7,22 +7,36 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Persistence;
 
+use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
 
 interface ShopThemeRepositoryInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
-     */
-    public function getActiveTheme(StoreTransfer $storeTransfer): ShopThemeTransfer;
-
-    /**
-     * @param int $idShopTheme
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
      *
      * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
      */
-    public function findShopThemeById(int $idShopTheme): ?ShopThemeTransfer;
+    public function findShopTheme(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): ?ShopThemeTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return array<\Generated\Shared\Transfer\ShopThemeTransfer>
+     */
+    public function getShopThemes(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return array<int>
+     */
+    public function getShopThemeIds(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array;
+
+    /**
+     * @param int $shopThemeId
+     *
+     * @return array<int>
+     */
+    public function getShopThemeStoreIds(int $shopThemeId): array;
 }

@@ -7,17 +7,17 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Business\ActiveThemeReader;
 
+use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
-use Spryker\Zed\Store\Business\StoreFacadeInterface;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface;
 
 class ActiveThemeReader implements ActiveThemeReaderInterface
 {
     /**
-     * @var \Spryker\Zed\Store\Business\StoreFacadeInterface
+     * @var string
      */
-    protected StoreFacadeInterface $storeFacade;
+    public const ACTIVE = 'active';
 
     /**
      * @var \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface
@@ -25,24 +25,24 @@ class ActiveThemeReader implements ActiveThemeReaderInterface
     protected ShopThemeRepositoryInterface $repository;
 
     /**
-     * @param \Spryker\Zed\Store\Business\StoreFacadeInterface $storeFacade
      * @param \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface $repository
      */
-    public function __construct(
-        StoreFacadeInterface $storeFacade,
-        ShopThemeRepositoryInterface $repository
-    ) {
-        $this->storeFacade = $storeFacade;
+    public function __construct(ShopThemeRepositoryInterface $repository)
+    {
         $this->repository = $repository;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
+     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
      */
-    public function getActiveTheme(?StoreTransfer $storeTransfer = null): ShopThemeTransfer
+    public function findActiveTheme(StoreTransfer $storeTransfer): ?ShopThemeTransfer
     {
-        return $this->repository->getActiveTheme($storeTransfer ?: $this->storeFacade->getCurrentStore());
+        return $this->repository->findShopTheme(
+            (new ShopThemeCriteriaTransfer())
+                ->setStoreName($storeTransfer->getName())
+                ->setStatus(static::ACTIVE),
+        );
     }
 }

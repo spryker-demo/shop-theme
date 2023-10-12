@@ -13,9 +13,9 @@ use Generated\Shared\Transfer\StoreTransfer;
 interface ActiveThemeReaderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
+     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
      *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
+     * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
      */
-    public function getActiveTheme(?StoreTransfer $storeTransfer = null): ShopThemeTransfer;
+    public function findActiveTheme(StoreTransfer $storeTransfer): ?ShopThemeTransfer;
 }

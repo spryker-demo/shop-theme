@@ -7,13 +7,20 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Business;
 
+use Spryker\Service\FileSystem\FileSystemServiceInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use Spryker\Zed\Store\Business\StoreFacadeInterface;
+use SprykerDemo\Service\UrlBuilder\UrlBuilderServiceInterface;
+use SprykerDemo\Zed\SalesInvoiceFile\SalesInvoiceFileDependencyProvider;
+use SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivator;
+use SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivatorInterface;
 use SprykerDemo\Zed\ShopTheme\Business\ActiveThemeReader\ActiveThemeReader;
 use SprykerDemo\Zed\ShopTheme\Business\ActiveThemeReader\ActiveThemeReaderInterface;
+use SprykerDemo\Zed\ShopTheme\Business\Saver\ShopThemeLogoSaver;
+use SprykerDemo\Zed\ShopTheme\Business\Saver\ShopThemeLogoSaverInterface;
 use SprykerDemo\Zed\ShopTheme\Business\StoreRelationValidator\StoreRelationValidator;
 use SprykerDemo\Zed\ShopTheme\Business\StoreRelationValidator\StoreRelationValidatorInterface;
-use SprykerDemo\Zed\ShopTheme\ShopThemeDependencyProvider;
+use SprykerDemo\Zed\ShopTheme\Business\Writer\ShopThemeWriter;
+use SprykerDemo\Zed\ShopTheme\Business\Writer\ShopThemeWriterInterface;
 
 /**
  * @method \SprykerDemo\Zed\ShopTheme\ShopThemeConfig getConfig()
@@ -23,11 +30,27 @@ use SprykerDemo\Zed\ShopTheme\ShopThemeDependencyProvider;
 class ShopThemeBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \Spryker\Zed\Store\Business\StoreFacadeInterface
+     * @return \SprykerDemo\Zed\ShopTheme\Business\Saver\ShopThemeLogoSaverInterface
      */
-    public function getStoreFacade(): StoreFacadeInterface
+    public function createShopThemeLogoSaver(): ShopThemeLogoSaverInterface
     {
-        return $this->getProvidedDependency(ShopThemeDependencyProvider::FACADE_STORE);
+        return new ShopThemeLogoSaver(
+            $this->getConfig(),
+            $this->getUrlBuilderService(),
+            $this->getFilesystemService(),
+        );
+    }
+
+    /**
+     * @return \SprykerDemo\Zed\ShopTheme\Business\Writer\ShopThemeWriterInterface
+     */
+    public function createShopThemeWriter(): ShopThemeWriterInterface
+    {
+        return new ShopThemeWriter(
+            $this->createShopThemeLogoSaver(),
+            $this->getEntityManager(),
+            $this->getRepository(),
+        );
     }
 
     /**
@@ -36,9 +59,16 @@ class ShopThemeBusinessFactory extends AbstractBusinessFactory
     public function createActiveThemeReader(): ActiveThemeReaderInterface
     {
         return new ActiveThemeReader(
-            $this->getStoreFacade(),
             $this->getRepository(),
         );
+    }
+
+    /**
+     * @return \SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivatorInterface
+     */
+    public function createShopThemeActivator(): ShopThemeActivatorInterface
+    {
+        return new ShopThemeActivator($this->getEntityManager(), $this->getRepository());
     }
 
     /**
@@ -47,8 +77,23 @@ class ShopThemeBusinessFactory extends AbstractBusinessFactory
     public function createStoreRelationValidator(): StoreRelationValidatorInterface
     {
         return new StoreRelationValidator(
-            $this->getStoreFacade(),
             $this->getRepository(),
         );
+    }
+
+    /**
+     * @return \SprykerDemo\Service\UrlBuilder\UrlBuilderServiceInterface
+     */
+    public function getUrlBuilderService(): UrlBuilderServiceInterface
+    {
+        return $this->getProvidedDependency(SalesInvoiceFileDependencyProvider::SERVICE_URL_BUILDER);
+    }
+
+    /**
+     * @return \Spryker\Service\FileSystem\FileSystemServiceInterface
+     */
+    public function getFilesystemService(): FileSystemServiceInterface
+    {
+        return $this->getProvidedDependency(SalesInvoiceFileDependencyProvider::SERVICE_FILESYSTEM);
     }
 }

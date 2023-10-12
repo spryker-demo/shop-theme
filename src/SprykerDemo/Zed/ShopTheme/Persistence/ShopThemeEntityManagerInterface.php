@@ -7,7 +7,6 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Persistence;
 
-use Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 
 interface ShopThemeEntityManagerInterface
@@ -31,9 +30,9 @@ interface ShopThemeEntityManagerInterface
     /**
      * @param int $idShopTheme
      *
-     * @return \Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer
+     * @return void
      */
-    public function activate(int $idShopTheme): ActivateShopThemeActionResponseTransfer;
+    public function activate(int $idShopTheme): void;
 
     /**
      * @param int $idShopTheme
@@ -41,4 +40,20 @@ interface ShopThemeEntityManagerInterface
      * @return void
      */
     public function deactivate(int $idShopTheme): void;
+
+    /**
+     * @param int $idShopTheme
+     * @param array<int> $storeIdsToDelete
+     *
+     * @return void
+     */
+    public function deleteStoreRelations(int $idShopTheme, array $storeIdsToDelete): void;
+
+    /**
+     * @param int $idShopTheme
+     * @param array<int> $storeIdsToAdd
+     *
+     * @return void
+     */
+    public function addStoreRelations(int $idShopTheme, array $storeIdsToAdd): void;
 }
