@@ -151,4 +151,18 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
         return $this->getFactory()->createStoreRelationValidator()
             ->validateStoreRelationForShopThemeByShopThemeId($shopThemeId, $storeRelation);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return bool
+     */
+    public function shopThemeExists(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): bool
+    {
+        return $this->getRepository()->shopThemeExists($shopThemeCriteriaTransfer);
+    }
 }

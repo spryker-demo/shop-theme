@@ -126,4 +126,16 @@ interface ShopThemeFacadeInterface
      * @return bool
      */
     public function validateStoreRelationForShopThemeByShopThemeId(int $shopThemeId, StoreRelationTransfer $storeRelation): bool;
+
+    /**
+     * Specification:
+     *  - Checks if shop them exists by provided `ShopThemeCriteriaTransfer`.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return bool
+     */
+    public function shopThemeExists(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): bool;
 }

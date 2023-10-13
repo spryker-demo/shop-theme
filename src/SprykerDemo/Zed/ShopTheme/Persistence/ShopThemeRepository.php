@@ -146,7 +146,7 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
         if ($shopThemeCriteriaTransfer->getStoreIds()) {
             $shopThemeQuery
                 ->useSpyShopThemeStoreQuery()
-                    ->filterByIdShopThemeStore_In($shopThemeCriteriaTransfer->getStoreIds())
+                    ->filterByFkStore_In($shopThemeCriteriaTransfer->getStoreIds())
                 ->endUse();
         }
 
@@ -162,6 +162,22 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
             $shopThemeQuery->filterByIdShopTheme($shopThemeCriteriaTransfer->getExcludedShopThemeIds(), Criteria::NOT_IN);
         }
 
+        if ($shopThemeCriteriaTransfer->getShopThemeName()) {
+            $shopThemeQuery->filterByName($shopThemeCriteriaTransfer->getShopThemeName());
+        }
+
         return $shopThemeQuery;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return bool
+     */
+    public function shopThemeExists(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): bool
+    {
+        $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
+
+        return $shopThemeQuery->exists();
     }
 }

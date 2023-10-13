@@ -39,43 +39,10 @@ class StoreRelationValidator implements StoreRelationValidatorInterface
      */
     public function validateStoreRelationForShopThemeByShopThemeId(int $shopThemeId, StoreRelationTransfer $storeRelation): bool
     {
-        $shopThemeTransfer = $this->repository->findShopTheme(
-            (new ShopThemeCriteriaTransfer())->setStatus(static::ACTIVE)
-                ->setWithStoreRelations(true)
-                ->setIdShopTheme($shopThemeId),
-        );
-
-        if (!$shopThemeTransfer) {
-            return true;
-        }
-
-        $storeIds = $this->extractStoreIds($shopThemeTransfer->getStoreRelation());
-        $shopThemeTransfer = $this->repository->findShopTheme(
+        return !$this->repository->shopThemeExists(
             (new ShopThemeCriteriaTransfer())->setStatus(static::ACTIVE)
                 ->setExcludedShopThemeIds([$shopThemeId])
-                ->setStoreIds($storeIds),
+                ->setStoreIds($storeRelation->getIdStores()),
         );
-
-        if (!$shopThemeTransfer) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\StoreRelationTransfer $storeRelationTransfer
-     *
-     * @return array<int>
-     */
-    protected function extractStoreIds(StoreRelationTransfer $storeRelationTransfer): array
-    {
-        $storeIds = [];
-
-        foreach ($storeRelationTransfer->getStores() as $store) {
-            $storeIds[] = $store->getIdStore();
-        }
-
-        return $storeIds;
     }
 }

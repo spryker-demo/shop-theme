@@ -48,6 +48,7 @@
         <property name="status" type="string"/>
         <property name="excludedShopThemeIds" type="int[]" singular="excludedShopThemeId"/>
         <property name="withStoreRelations" type="bool"/>
+        <property name="shopThemeName" type="string"/>
     </transfer>
 
     <transfer name="StoreRelation">

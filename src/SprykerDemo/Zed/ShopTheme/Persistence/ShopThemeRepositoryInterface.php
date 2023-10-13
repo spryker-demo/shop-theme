@@ -39,4 +39,11 @@ interface ShopThemeRepositoryInterface
      * @return array<int>
      */
     public function getShopThemeStoreIds(int $shopThemeId): array;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer
+     *
+     * @return bool
+     */
+    public function shopThemeExists(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): bool;
 }
