@@ -58,7 +58,7 @@ class ShopThemeActivator implements ShopThemeActivatorInterface
         $storeIds = $this->repository->getShopThemeStoreIds($idShopTheme);
         $conflictingShopTheme = $this->findConflictingShopTheme($idShopTheme, $storeIds);
 
-        if (!$conflictingShopTheme) {
+        if (!$conflictingShopTheme || !$conflictingShopTheme->getStoreRelation()) {
             $this->entityManager->activate($idShopTheme);
 
             return $responseTransfer;
@@ -99,6 +99,7 @@ class ShopThemeActivator implements ShopThemeActivatorInterface
         return $this->repository->findShopTheme(
             (new ShopThemeCriteriaTransfer())
                 ->setExcludedShopThemeIds([$shopThemeId])
+                ->setWithStoreRelations(true)
                 ->setStoreIds($storeIds)
                 ->setStatus(static::ACTIVE),
         );
