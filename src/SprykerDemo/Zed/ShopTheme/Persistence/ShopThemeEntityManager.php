@@ -103,7 +103,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
      *
      * @return void
      */
-    public function addStoreRelations(int $idShopTheme, array $storeIdsToAdd): void
+    public function saveStoreRelations(int $idShopTheme, array $storeIdsToAdd): void
     {
         $propelCollection = new ObjectCollection();
         $propelCollection->setModel(SpyShopThemeStore::class);

@@ -111,7 +111,7 @@ class ShopThemeWriter implements ShopThemeWriterInterface
         }
 
         if ($storeIdsToAdd) {
-            $this->shopThemeEntityManager->addStoreRelations($shopThemeTransfer->getIdShopTheme(), $storeIdsToAdd);
+            $this->shopThemeEntityManager->saveStoreRelations($shopThemeTransfer->getIdShopTheme(), $storeIdsToAdd);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace SprykerDemo\Zed\ShopTheme\Business;
 use Spryker\Service\FileSystem\FileSystemServiceInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerDemo\Service\UrlBuilder\UrlBuilderServiceInterface;
-use SprykerDemo\Zed\SalesInvoiceFile\SalesInvoiceFileDependencyProvider;
 use SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivator;
 use SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivatorInterface;
 use SprykerDemo\Zed\ShopTheme\Business\ActiveThemeReader\ActiveThemeReader;
@@ -21,6 +20,7 @@ use SprykerDemo\Zed\ShopTheme\Business\StoreRelationValidator\StoreRelationValid
 use SprykerDemo\Zed\ShopTheme\Business\StoreRelationValidator\StoreRelationValidatorInterface;
 use SprykerDemo\Zed\ShopTheme\Business\Writer\ShopThemeWriter;
 use SprykerDemo\Zed\ShopTheme\Business\Writer\ShopThemeWriterInterface;
+use SprykerDemo\Zed\ShopTheme\ShopThemeDependencyProvider;
 
 /**
  * @method \SprykerDemo\Zed\ShopTheme\ShopThemeConfig getConfig()
@@ -86,7 +86,7 @@ class ShopThemeBusinessFactory extends AbstractBusinessFactory
      */
     public function getUrlBuilderService(): UrlBuilderServiceInterface
     {
-        return $this->getProvidedDependency(SalesInvoiceFileDependencyProvider::SERVICE_URL_BUILDER);
+        return $this->getProvidedDependency(ShopThemeDependencyProvider::SERVICE_URL_BUILDER);
     }
 
     /**
@@ -94,6 +94,6 @@ class ShopThemeBusinessFactory extends AbstractBusinessFactory
      */
     public function getFilesystemService(): FileSystemServiceInterface
     {
-        return $this->getProvidedDependency(SalesInvoiceFileDependencyProvider::SERVICE_FILESYSTEM);
+        return $this->getProvidedDependency(ShopThemeDependencyProvider::SERVICE_FILESYSTEM);
     }
 }
