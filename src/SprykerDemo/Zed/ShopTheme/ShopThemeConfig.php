@@ -20,6 +20,8 @@ class ShopThemeConfig extends AbstractBundleConfig
 
     /**
      * @uses \Orm\Zed\ShopTheme\Persistence\Map\SpyShopThemeTableMap::COL_STATUS_ACTIVE
+     *
+     * @var string
      */
     public const STATUS_ACTIVE = 'active';
 

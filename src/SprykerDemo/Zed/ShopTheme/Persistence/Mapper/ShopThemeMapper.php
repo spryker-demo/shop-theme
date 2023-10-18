@@ -144,9 +144,9 @@ class ShopThemeMapper
     }
 
     /**
-     * @param ShopThemeDataTransfer $shopThemeDataTransfer
+     * @param \Generated\Shared\Transfer\ShopThemeDataTransfer $shopThemeDataTransfer
      *
-     * @return array<string,mixed>
+     * @return array<string, mixed>
      */
     protected function mapShopThemeDataTransferToArray(ShopThemeDataTransfer $shopThemeDataTransfer): array
     {
