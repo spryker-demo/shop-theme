@@ -20,16 +20,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeEntityManagerInterface
 {
     /**
-     * @var string
-     */
-    protected const ACTIVE = SpyShopThemeTableMap::COL_STATUS_ACTIVE;
-
-    /**
-     * @var string
-     */
-    protected const INACTIVE = SpyShopThemeTableMap::COL_STATUS_INACTIVE;
-
-    /**
      * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
      *
      * @return \Generated\Shared\Transfer\ShopThemeTransfer
@@ -75,7 +65,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
             ->filterByIdShopTheme($idShopTheme)
             ->findOne();
 
-        $shopThemeEntity->setStatus(static::ACTIVE)->save();
+        $shopThemeEntity->setStatus(SpyShopThemeTableMap::COL_STATUS_ACTIVE)->save();
     }
 
     /**
@@ -94,7 +84,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
             return;
         }
 
-        $shopThemeEntity->setStatus(static::INACTIVE)->save();
+        $shopThemeEntity->setStatus(SpyShopThemeTableMap::COL_STATUS_INACTIVE)->save();
     }
 
     /**

@@ -13,14 +13,10 @@ use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeEntityManagerInterface;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface;
+use SprykerDemo\Zed\ShopTheme\ShopThemeConfig;
 
 class ShopThemeActivator implements ShopThemeActivatorInterface
 {
-    /**
-     * @var string
-     */
-    public const ACTIVE = 'active';
-
     /**
      * @var \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeEntityManagerInterface
      */
@@ -101,7 +97,7 @@ class ShopThemeActivator implements ShopThemeActivatorInterface
                 ->setExcludedShopThemeIds([$shopThemeId])
                 ->setWithStoreRelations(true)
                 ->setStoreIds($storeIds)
-                ->setStatus(static::ACTIVE),
+                ->setStatus(ShopThemeConfig::STATUS_ACTIVE),
         );
     }
 }

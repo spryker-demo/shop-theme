@@ -51,15 +51,8 @@ class ShopThemeMapper
         $shopThemeEntity->setIdShopTheme($shopThemeTransfer->getIdShopTheme());
         $shopThemeEntity->setNew($shopThemeTransfer->getIdShopTheme() === null);
 
-        $shopThemeData = $shopThemeTransfer->getShopThemeData()->toArray(true, true);
-        unset(
-            $shopThemeData[ShopThemeDataTransfer::DELETE_BACKOFFICE_LOGO],
-            $shopThemeData[ShopThemeDataTransfer::DELETE_MP_LOGO],
-            $shopThemeData[ShopThemeDataTransfer::DELETE_LOGO],
-            $shopThemeData[ShopThemeDataTransfer::BACKOFFICE_LOGO_FILE],
-            $shopThemeData[ShopThemeDataTransfer::MP_LOGO_FILE],
-            $shopThemeData[ShopThemeDataTransfer::LOGO_FILE],
-        );
+        $shopThemeData = $this->mapShopThemeDataTransferToArray($shopThemeTransfer->getShopThemeData());
+
         $shopThemeEntity->setData($shopThemeData
             ? $this->utilEncodingService->encodeJson($shopThemeData)
             : '{}');
@@ -148,5 +141,26 @@ class ShopThemeMapper
         }
 
         return $shopThemeTransfers;
+    }
+
+    /**
+     * @param ShopThemeDataTransfer $shopThemeDataTransfer
+     *
+     * @return array<string,mixed>
+     */
+    protected function mapShopThemeDataTransferToArray(ShopThemeDataTransfer $shopThemeDataTransfer): array
+    {
+        $shopThemeData = $shopThemeDataTransfer->toArray(true, true);
+
+        unset(
+            $shopThemeData[ShopThemeDataTransfer::DELETE_BACKOFFICE_LOGO],
+            $shopThemeData[ShopThemeDataTransfer::DELETE_MP_LOGO],
+            $shopThemeData[ShopThemeDataTransfer::DELETE_LOGO],
+            $shopThemeData[ShopThemeDataTransfer::BACKOFFICE_LOGO_FILE],
+            $shopThemeData[ShopThemeDataTransfer::MP_LOGO_FILE],
+            $shopThemeData[ShopThemeDataTransfer::LOGO_FILE],
+        );
+
+        return $shopThemeData;
     }
 }

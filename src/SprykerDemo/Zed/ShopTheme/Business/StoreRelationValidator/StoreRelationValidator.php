@@ -10,14 +10,10 @@ namespace SprykerDemo\Zed\ShopTheme\Business\StoreRelationValidator;
 use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\StoreRelationTransfer;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface;
+use SprykerDemo\Zed\ShopTheme\ShopThemeConfig;
 
 class StoreRelationValidator implements StoreRelationValidatorInterface
 {
-    /**
-     * @var string
-     */
-    public const ACTIVE = 'active';
-
     /**
      * @var \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface
      */
@@ -40,7 +36,7 @@ class StoreRelationValidator implements StoreRelationValidatorInterface
     public function validateStoreRelationForShopThemeByShopThemeId(int $shopThemeId, StoreRelationTransfer $storeRelation): bool
     {
         return !$this->repository->shopThemeExists(
-            (new ShopThemeCriteriaTransfer())->setStatus(static::ACTIVE)
+            (new ShopThemeCriteriaTransfer())->setStatus(ShopThemeConfig::STATUS_ACTIVE)
                 ->setExcludedShopThemeIds([$shopThemeId])
                 ->setStoreIds($storeRelation->getIdStores()),
         );

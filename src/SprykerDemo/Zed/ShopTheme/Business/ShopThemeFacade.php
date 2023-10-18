@@ -103,7 +103,7 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @return void
      */
-    public function deleteShopTheme(int $idShopTheme): void
+    public function deleteShopThemeById(int $idShopTheme): void
     {
         $this->getEntityManager()->deleteShopTheme($idShopTheme);
     }
@@ -117,7 +117,7 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @return void
      */
-    public function deactivateTheme(int $idShopTheme): void
+    public function deactivateThemeById(int $idShopTheme): void
     {
         $this->getEntityManager()->deactivate($idShopTheme);
     }
@@ -131,7 +131,7 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @return \Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer
      */
-    public function activateTheme(int $idShopTheme): ActivateShopThemeActionResponseTransfer
+    public function activateThemeById(int $idShopTheme): ActivateShopThemeActionResponseTransfer
     {
         return $this->getFactory()->createShopThemeActivator()->activate($idShopTheme);
     }

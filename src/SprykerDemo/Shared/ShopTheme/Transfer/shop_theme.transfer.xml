@@ -75,6 +75,5 @@
     <transfer name="File">
         <property name="fileName" type="string"/>
         <property name="fileContent" type="string"/>
-        <property name="contentType" type="string"/>
     </transfer>
 </transfers>

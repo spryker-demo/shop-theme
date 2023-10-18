@@ -54,7 +54,7 @@ interface ShopThemeFacadeInterface
 
     /**
      * Specification:
-     *  - Get active theme for frontend for particular store.
+     *  - Gets active theme for frontend for particular store.
      *
      * @api
      *
@@ -78,7 +78,7 @@ interface ShopThemeFacadeInterface
 
     /**
      * Specification:
-     *  - Deletes theme for frontend.
+     *  - Deletes shop theme by provided id.
      *
      * @api
      *
@@ -86,11 +86,11 @@ interface ShopThemeFacadeInterface
      *
      * @return void
      */
-    public function deleteShopTheme(int $idShopTheme): void;
+    public function deleteShopThemeById(int $idShopTheme): void;
 
     /**
      * Specification:
-     *  - Deactivates theme.
+     *  - Deactivates shop theme by id.
      *
      * @api
      *
@@ -98,11 +98,11 @@ interface ShopThemeFacadeInterface
      *
      * @return void
      */
-    public function deactivateTheme(int $idShopTheme): void;
+    public function deactivateThemeById(int $idShopTheme): void;
 
     /**
      * Specification:
-     *  - Activates theme.
+     *  - Activates shop theme by provided id.
      *
      * @api
      *
@@ -110,7 +110,7 @@ interface ShopThemeFacadeInterface
      *
      * @return \Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer
      */
-    public function activateTheme(int $idShopTheme): ActivateShopThemeActionResponseTransfer;
+    public function activateThemeById(int $idShopTheme): ActivateShopThemeActionResponseTransfer;
 
     /**
      *  Specification:
