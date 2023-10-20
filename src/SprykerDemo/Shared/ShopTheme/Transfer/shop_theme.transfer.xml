@@ -33,6 +33,10 @@
         <property name="backofficeThemeColorEnabled" type="bool"/>
         <property name="mpThemeColor" type="string"/>
         <property name="mpThemeColorEnabled" type="bool"/>
+        <property name="mpThemeDarkColor" type="string"/>
+        <property name="mpThemeDarkColorEnabled" type="bool"/>
+        <property name="mpThemeLightColor" type="string"/>
+        <property name="mpThemeLightColorEnabled" type="bool"/>
         <property name="logoUrl" type="string"/>
         <property name="backofficeLogoUrl" type="string"/>
         <property name="mpLogoUrl" type="string"/>
