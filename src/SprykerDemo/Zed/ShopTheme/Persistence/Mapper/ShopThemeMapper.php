@@ -103,6 +103,7 @@ class ShopThemeMapper
      */
     protected function mapShopThemeEntityDataToShopThemeDataTransfer(string $shopThemeData, ShopThemeDataTransfer $shopThemeDataTransfer): ShopThemeDataTransfer
     {
+        /** @var array<mixed> $decodedData*/
         $decodedData = $shopThemeData
             ? $this->utilEncodingService->decodeJson($shopThemeData, true)
             : [];
