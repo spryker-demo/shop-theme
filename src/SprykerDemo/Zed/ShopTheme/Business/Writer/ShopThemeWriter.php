@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\ShopThemeResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
-use SprykerDemo\Zed\ShopTheme\Business\Saver\ShopThemeLogoSaverInterface;
+use SprykerDemo\Zed\ShopTheme\Business\Writer\Saver\ShopThemeLogoSaverInterface;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeEntityManagerInterface;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface;
 use Throwable;
@@ -27,7 +27,7 @@ class ShopThemeWriter implements ShopThemeWriterInterface
     protected const SHOP_THEME_SAVE_ERROR_MESSAGE = 'Shop theme was not saved successfully.';
 
     /**
-     * @var \SprykerDemo\Zed\ShopTheme\Business\Saver\ShopThemeLogoSaverInterface
+     * @var \SprykerDemo\Zed\ShopTheme\Business\Writer\Saver\ShopThemeLogoSaverInterface
      */
     protected ShopThemeLogoSaverInterface $shopThemeLogoSaver;
 
@@ -42,7 +42,7 @@ class ShopThemeWriter implements ShopThemeWriterInterface
     protected ShopThemeRepositoryInterface $shopThemeRepository;
 
     /**
-     * @param \SprykerDemo\Zed\ShopTheme\Business\Saver\ShopThemeLogoSaverInterface $shopThemeLogoSaver
+     * @param \SprykerDemo\Zed\ShopTheme\Business\Writer\Saver\ShopThemeLogoSaverInterface $shopThemeLogoSaver
      * @param \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeEntityManagerInterface $shopThemeEntityManager
      * @param \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface $shopThemeRepository
      */

@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerDemo\Zed\ShopTheme\Business\ActiveThemeReader;
+namespace SprykerDemo\Zed\ShopTheme\Business\Reader;
 
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;

@@ -45,20 +45,12 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
             return null;
         }
 
-        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
-            return $this->getFactory()
-                ->createShopThemeMapper()
-                ->mapShopThemeEntityToShopThemeTransferWithStoreRelation(
-                    $shopThemeEntity,
-                    new ShopThemeTransfer(),
-                );
-        }
-
         return $this->getFactory()
             ->createShopThemeMapper()
             ->mapShopThemeEntityToShopThemeTransfer(
                 $shopThemeEntity,
                 new ShopThemeTransfer(),
+                $shopThemeCriteriaTransfer,
             );
     }
 
@@ -81,11 +73,20 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
 
         $shopThemeEntities = $shopThemeQuery->find()->getData();
 
-        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
-            return $this->getFactory()->createShopThemeMapper()->mapShopThemeEntitiesToShopThemeTransfersWithStoreRelation($shopThemeEntities);
+        $shopThemeTransfers = [];
+
+        $shopThemeMapper = $this->getFactory()->createShopThemeMapper();
+
+        foreach ($shopThemeEntities as $shopThemeEntity) {
+            $shopThemeTransfers[] = $shopThemeMapper
+                ->mapShopThemeEntityToShopThemeTransfer(
+                    $shopThemeEntity,
+                    new ShopThemeTransfer(),
+                    $shopThemeCriteriaTransfer,
+                );
         }
 
-        return $this->getFactory()->createShopThemeMapper()->mapShopThemeEntitiesToShopThemeTransfers($shopThemeEntities);
+        return $shopThemeTransfers;
     }
 
     /**

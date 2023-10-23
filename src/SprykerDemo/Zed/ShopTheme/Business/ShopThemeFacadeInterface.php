@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
-use Generated\Shared\Transfer\StoreRelationTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 
 interface ShopThemeFacadeInterface
@@ -111,21 +110,6 @@ interface ShopThemeFacadeInterface
      * @return \Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer
      */
     public function activateThemeById(int $idShopTheme): ActivateShopThemeActionResponseTransfer;
-
-    /**
-     *  Specification:
-     *  - Validates store relation for the shop theme.
-     *  - If the theme with $shopThemeId is active and provided stores are assigned to another active themes then return false.
-     *  - Otherwise returns true
-     *
-     * @api
-     *
-     * @param int $shopThemeId
-     * @param \Generated\Shared\Transfer\StoreRelationTransfer $storeRelation
-     *
-     * @return bool
-     */
-    public function validateStoreRelationForShopThemeByShopThemeId(int $shopThemeId, StoreRelationTransfer $storeRelation): bool;
 
     /**
      * Specification:
