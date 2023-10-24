@@ -31,17 +31,9 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
     public function findShopTheme(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): ?ShopThemeTransfer
     {
         $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
+        $shopThemeEntity = $shopThemeQuery->find()->getFirst();
 
-        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
-            $shopThemeQuery->joinSpyShopThemeStore()
-                ->useSpyShopThemeStoreQuery()
-                    ->joinSpyStore()
-                ->endUse();
-        }
-
-        $shopThemeEntity = $shopThemeQuery->findOne();
-
-        if (!$shopThemeEntity) {
+        if ($shopThemeEntity === null) {
             return null;
         }
 
@@ -62,17 +54,7 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
     public function getShopThemes(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array
     {
         $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
-
-        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
-            $shopThemeQuery
-                ->joinWithSpyShopThemeStore()
-                ->useSpyShopThemeStoreQuery()
-                    ->joinWithSpyStore()
-                ->endUse();
-        }
-
         $shopThemeEntities = $shopThemeQuery->find()->getData();
-
         $shopThemeTransfers = [];
 
         $shopThemeMapper = $this->getFactory()->createShopThemeMapper();
@@ -97,14 +79,6 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
     public function getShopThemeIds(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array
     {
         $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
-
-        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
-            $shopThemeQuery
-                ->joinWithSpyShopThemeStore()
-                ->useSpyShopThemeStoreQuery()
-                    ->joinWithSpyStore()
-                ->endUse();
-        }
 
         return $shopThemeQuery->find()->getColumnValues();
     }
@@ -165,6 +139,14 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
 
         if ($shopThemeCriteriaTransfer->getShopThemeName()) {
             $shopThemeQuery->filterByName($shopThemeCriteriaTransfer->getShopThemeName());
+        }
+
+        if ($shopThemeCriteriaTransfer->getWithStoreRelations()) {
+            $shopThemeQuery
+                ->joinWithSpyShopThemeStore()
+                ->useSpyShopThemeStoreQuery()
+                    ->joinWithSpyStore()
+                ->endUse();
         }
 
         return $shopThemeQuery;

@@ -52,7 +52,7 @@ class ShopThemeMapper
         $shopThemeEntity->setIdShopTheme($shopThemeTransfer->getIdShopTheme());
         $shopThemeEntity->setNew($shopThemeTransfer->getIdShopTheme() === null);
 
-        $shopThemeData = $this->mapShopThemeDataTransferToArray($shopThemeTransfer->getShopThemeData());
+        $shopThemeData = $this->getShopThemeData($shopThemeTransfer->getShopThemeData());
 
         $shopThemeEntity->setData($shopThemeData
             ? $this->utilEncodingService->encodeJson($shopThemeData)
@@ -82,7 +82,7 @@ class ShopThemeMapper
             new ShopThemeDataTransfer(),
         ));
 
-        if ($shopThemeCriteriaTransfer === null || $shopThemeCriteriaTransfer->getWithStoreRelations() === false) {
+        if ($shopThemeCriteriaTransfer === null || $shopThemeCriteriaTransfer->getWithStoreRelations() !== true) {
             return $shopThemeTransfer;
         }
 
@@ -116,7 +116,7 @@ class ShopThemeMapper
      *
      * @return array<string, mixed>
      */
-    protected function mapShopThemeDataTransferToArray(ShopThemeDataTransfer $shopThemeDataTransfer): array
+    protected function getShopThemeData(ShopThemeDataTransfer $shopThemeDataTransfer): array
     {
         $shopThemeData = $shopThemeDataTransfer->toArray(true, true);
 

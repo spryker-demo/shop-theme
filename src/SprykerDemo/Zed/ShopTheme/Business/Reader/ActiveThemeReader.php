@@ -11,10 +11,16 @@ use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface;
-use SprykerDemo\Zed\ShopTheme\ShopThemeConfig;
 
 class ActiveThemeReader implements ActiveThemeReaderInterface
 {
+    /**
+     * @uses \Orm\Zed\ShopTheme\Persistence\Map\SpyShopThemeTableMap::COL_STATUS_ACTIVE
+     *
+     * @var string
+     */
+    protected const STATUS_ACTIVE = 'active';
+
     /**
      * @var \SprykerDemo\Zed\ShopTheme\Persistence\ShopThemeRepositoryInterface
      */
@@ -38,7 +44,7 @@ class ActiveThemeReader implements ActiveThemeReaderInterface
         return $this->repository->findShopTheme(
             (new ShopThemeCriteriaTransfer())
                 ->setStoreName($storeTransfer->getName())
-                ->setStatus(ShopThemeConfig::STATUS_ACTIVE),
+                ->setStatus(static::STATUS_ACTIVE),
         );
     }
 }
