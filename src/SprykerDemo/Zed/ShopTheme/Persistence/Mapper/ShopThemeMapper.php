@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Zed\ShopTheme\Persistence\Mapper;
 
+use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeDataTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
 use Generated\Shared\Transfer\StoreRelationTransfer;
@@ -51,7 +52,7 @@ class ShopThemeMapper
         $shopThemeEntity->setIdShopTheme($shopThemeTransfer->getIdShopTheme());
         $shopThemeEntity->setNew($shopThemeTransfer->getIdShopTheme() === null);
 
-        $shopThemeData = $this->mapShopThemeDataTransferToArray($shopThemeTransfer->getShopThemeData());
+        $shopThemeData = $this->getShopThemeData($shopThemeTransfer->getShopThemeData());
 
         $shopThemeEntity->setData($shopThemeData
             ? $this->utilEncodingService->encodeJson($shopThemeData)
@@ -63,37 +64,28 @@ class ShopThemeMapper
     /**
      * @param \Orm\Zed\ShopTheme\Persistence\SpyShopTheme $shopThemeEntity
      * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
+     * @param \Generated\Shared\Transfer\ShopThemeCriteriaTransfer|null $shopThemeCriteriaTransfer
      *
      * @return \Generated\Shared\Transfer\ShopThemeTransfer
      */
     public function mapShopThemeEntityToShopThemeTransfer(
         SpyShopTheme $shopThemeEntity,
-        ShopThemeTransfer $shopThemeTransfer
+        ShopThemeTransfer $shopThemeTransfer,
+        ?ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer = null
     ): ShopThemeTransfer {
         $shopThemeTransfer->setIdShopTheme($shopThemeEntity->getIdShopTheme());
         $shopThemeTransfer->setName($shopThemeEntity->getName());
         $shopThemeTransfer->setStatus($shopThemeEntity->getStatus());
-        /** @var array<mixed> $decodedData*/
-        $decodedData = $shopThemeEntity->getData()
-            ? $this->utilEncodingService->decodeJson($shopThemeEntity->getData(), true)
-            : [];
-        $shopThemeTransfer->setData($decodedData);
-        $shopThemeTransfer->setShopThemeData((new ShopThemeDataTransfer())->fromArray($decodedData, true));
 
-        return $shopThemeTransfer;
-    }
+        $shopThemeTransfer->setShopThemeData($this->mapShopThemeEntityDataToShopThemeDataTransfer(
+            $shopThemeEntity->getData(),
+            new ShopThemeDataTransfer(),
+        ));
 
-    /**
-     * @param \Orm\Zed\ShopTheme\Persistence\SpyShopTheme $shopThemeEntity
-     * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
-     *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer
-     */
-    public function mapShopThemeEntityToShopThemeTransferWithStoreRelation(
-        SpyShopTheme $shopThemeEntity,
-        ShopThemeTransfer $shopThemeTransfer
-    ): ShopThemeTransfer {
-        $shopThemeTransfer = $this->mapShopThemeEntityToShopThemeTransfer($shopThemeEntity, $shopThemeTransfer);
+        if ($shopThemeCriteriaTransfer === null || $shopThemeCriteriaTransfer->getWithStoreRelations() !== true) {
+            return $shopThemeTransfer;
+        }
+
         $storeRelationTransfer = $this->shopThemeStoreRelationMapper->mapShopThemeStoreEntitiesToStoreRelationTransfer(
             $shopThemeEntity->getSpyShopThemeStores(),
             (new StoreRelationTransfer())->setIdEntity($shopThemeEntity->getIdShopTheme()),
@@ -104,43 +96,19 @@ class ShopThemeMapper
     }
 
     /**
-     * @param array<\Orm\Zed\ShopTheme\Persistence\SpyShopTheme> $shopThemeEntities
+     * @param string $shopThemeData
+     * @param \Generated\Shared\Transfer\ShopThemeDataTransfer $shopThemeDataTransfer
      *
-     * @return array<\Generated\Shared\Transfer\ShopThemeTransfer>
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
      */
-    public function mapShopThemeEntitiesToShopThemeTransfersWithStoreRelation(array $shopThemeEntities): array
+    protected function mapShopThemeEntityDataToShopThemeDataTransfer(string $shopThemeData, ShopThemeDataTransfer $shopThemeDataTransfer): ShopThemeDataTransfer
     {
-        $shopThemeTransfers = [];
+        /** @var array<mixed> $decodedData*/
+        $decodedData = $shopThemeData
+            ? $this->utilEncodingService->decodeJson($shopThemeData, true)
+            : [];
 
-        foreach ($shopThemeEntities as $shopThemeEntity) {
-            $shopThemeTransfers[] = $this
-                ->mapShopThemeEntityToShopThemeTransferWithStoreRelation(
-                    $shopThemeEntity,
-                    new ShopThemeTransfer(),
-                );
-        }
-
-        return $shopThemeTransfers;
-    }
-
-    /**
-     * @param array<\Orm\Zed\ShopTheme\Persistence\SpyShopTheme> $shopThemeEntities
-     *
-     * @return array<\Generated\Shared\Transfer\ShopThemeTransfer>
-     */
-    public function mapShopThemeEntitiesToShopThemeTransfers(array $shopThemeEntities): array
-    {
-        $shopThemeTransfers = [];
-
-        foreach ($shopThemeEntities as $shopThemeEntity) {
-            $shopThemeTransfers[] = $this
-                ->mapShopThemeEntityToShopThemeTransfer(
-                    $shopThemeEntity,
-                    new ShopThemeTransfer(),
-                );
-        }
-
-        return $shopThemeTransfers;
+        return $shopThemeDataTransfer->fromArray($decodedData, true);
     }
 
     /**
@@ -148,7 +116,7 @@ class ShopThemeMapper
      *
      * @return array<string, mixed>
      */
-    protected function mapShopThemeDataTransferToArray(ShopThemeDataTransfer $shopThemeDataTransfer): array
+    protected function getShopThemeData(ShopThemeDataTransfer $shopThemeDataTransfer): array
     {
         $shopThemeData = $shopThemeDataTransfer->toArray(true, true);
 

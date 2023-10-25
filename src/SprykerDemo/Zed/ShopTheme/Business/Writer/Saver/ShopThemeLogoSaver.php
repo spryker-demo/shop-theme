@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerDemo\Zed\ShopTheme\Business\Saver;
+namespace SprykerDemo\Zed\ShopTheme\Business\Writer\Saver;
 
 use Generated\Shared\Transfer\FileSystemContentTransfer;
 use Generated\Shared\Transfer\FileSystemDeleteTransfer;

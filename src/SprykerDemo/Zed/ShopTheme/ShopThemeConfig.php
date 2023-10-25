@@ -19,13 +19,6 @@ class ShopThemeConfig extends AbstractBundleConfig
     protected const LOGO_FILESYSTEM_NAME = 'logo';
 
     /**
-     * @uses \Orm\Zed\ShopTheme\Persistence\Map\SpyShopThemeTableMap::COL_STATUS_ACTIVE
-     *
-     * @var string
-     */
-    public const STATUS_ACTIVE = 'active';
-
-    /**
      * @api
      *
      * @return string

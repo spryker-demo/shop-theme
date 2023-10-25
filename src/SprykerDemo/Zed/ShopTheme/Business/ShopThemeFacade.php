@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
-use Generated\Shared\Transfer\StoreRelationTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -134,22 +133,6 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
     public function activateThemeById(int $idShopTheme): ActivateShopThemeActionResponseTransfer
     {
         return $this->getFactory()->createShopThemeActivator()->activate($idShopTheme);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @api
-     *
-     * @param int $shopThemeId
-     * @param \Generated\Shared\Transfer\StoreRelationTransfer $storeRelation
-     *
-     * @return bool
-     */
-    public function validateStoreRelationForShopThemeByShopThemeId(int $shopThemeId, StoreRelationTransfer $storeRelation): bool
-    {
-        return $this->getFactory()->createStoreRelationValidator()
-            ->validateStoreRelationForShopThemeByShopThemeId($shopThemeId, $storeRelation);
     }
 
     /**
