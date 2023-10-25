@@ -25,10 +25,14 @@
         <property name="footerBottomLineBackgroundEnabled" type="bool"/>
         <property name="footerBottomLineTextColor" type="string"/>
         <property name="footerBottomLineTextColorEnabled" type="bool"/>
-        <property name="buttonPrimaryColor" type="string"/>
-        <property name="buttonPrimaryColorEnabled" type="bool"/>
-        <property name="buttonSecondaryColor" type="string"/>
-        <property name="buttonSecondaryColorEnabled" type="bool"/>
+        <property name="primaryButtonBackgroundColor" type="string"/>
+        <property name="primaryButtonBackgroundColorEnabled" type="bool"/>
+        <property name="primaryButtonTextColor" type="string"/>
+        <property name="primaryButtonTextColorEnabled" type="bool"/>
+        <property name="secondaryButtonBackgroundColor" type="string"/>
+        <property name="secondaryButtonBackgroundColorEnabled" type="bool"/>
+        <property name="secondaryButtonTextColor" type="string"/>
+        <property name="secondaryButtonTextColorEnabled" type="bool"/>
 
         <property name="headerTopBackgroundColor" type="string"/>
         <property name="headerTopBackgroundColorEnabled" type="bool"/>
@@ -48,7 +52,6 @@
         <property name="headerBottomTextColorEnabled" type="bool"/>
         <property name="headerBottomIconColor" type="string"/>
         <property name="headerBottomIconColorEnabled" type="bool"/>
-
         <property name="footerNewsletterSectionBackgroundColor" type="string"/>
         <property name="footerNewsletterSectionBackgroundColorEnabled" type="bool"/>
         <property name="footerNewsletterSectionTextColor" type="string"/>
