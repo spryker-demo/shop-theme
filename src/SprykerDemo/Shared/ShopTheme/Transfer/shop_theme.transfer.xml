@@ -34,7 +34,7 @@
         <property name="secondaryButtonTextColor" type="string"/>
         <property name="secondaryButtonTextColorEnabled" type="bool"/>
 
-        <property name="headerTopBackgroundColor" type="string"/>
+        <!--<property name="headerTopBackgroundColor" type="string"/>
         <property name="headerTopBackgroundColorEnabled" type="bool"/>
         <property name="headerTopTextColor" type="string"/>
         <property name="headerTopTextColorEnabled" type="bool"/>
@@ -75,16 +75,16 @@
         <property name="footerCopyrightSectionTextColor" type="string"/>
         <property name="footerCopyrightSectionTextColorEnabled" type="bool"/>
         <property name="footerCopyrightSectionIconColor" type="string"/>
-        <property name="footerCopyrightSectionIconColorEnabled" type="bool"/>
+        <property name="footerCopyrightSectionIconColorEnabled" type="bool"/>-->
 
-        <property name="backofficeThemeColor" type="string"/>
+       <!-- <property name="backofficeThemeColor" type="string"/>
         <property name="backofficeThemeColorEnabled" type="bool"/>
         <property name="mpThemeColor" type="string"/>
         <property name="mpThemeColorEnabled" type="bool"/>
         <property name="mpThemeDarkColor" type="string"/>
         <property name="mpThemeDarkColorEnabled" type="bool"/>
         <property name="mpThemeLightColor" type="string"/>
-        <property name="mpThemeLightColorEnabled" type="bool"/>
+        <property name="mpThemeLightColorEnabled" type="bool"/>-->
         <property name="logoUrl" type="string"/>
         <property name="backofficeLogoUrl" type="string"/>
         <property name="mpLogoUrl" type="string"/>
@@ -94,6 +94,66 @@
         <property name="deleteLogo" type="bool"/>
         <property name="deleteMpLogo" type="bool"/>
         <property name="deleteBackofficeLogo" type="bool"/>
+
+        <property name="shopThemeYves" type="ShopThemeYves"/>
+        <property name="shopThemeBackoffice" type="ShopThemeBackoffice"/>
+        <property name="shopThemeMerchantPortal" type="ShopThemeMerchantPortal"/>
+    </transfer>
+    <transfer name="ShopThemeBackoffice">
+        <property name="backofficeThemeColor" type="ShopThemeColor"/>
+    </transfer>
+
+    <transfer name="ShopThemeMerchantPortal">
+        <property name="mpThemeColor" type="ShopThemeColor"/>
+        <property name="mpThemeDarkColor" type="ShopThemeColor"/>
+        <property name="mpThemeLightColor" type="ShopThemeColor"/>
+    </transfer>
+
+    <transfer name="ShopThemeYves">
+        <property name="headerTopBackgroundColor" type="ShopThemeColor"/>
+        <property name="headerTopTextColor" type="ShopThemeColor"/>
+        <property name="headerTopIconColor" type="ShopThemeColor"/>
+        <property name="headerMainBackgroundColor" type="ShopThemeColor"/>
+        <property name="headerMainTextColor" type="ShopThemeColor"/>
+        <property name="headerMainIconColor" type="ShopThemeColor"/>
+        <property name="headerBottomBackgroundColor" type="ShopThemeColor"/>
+        <property name="headerBottomTextColor" type="ShopThemeColor"/>
+        <property name="headerBottomIconColor" type="ShopThemeColor"/>
+
+        <property name="footerNewsletterSectionBackgroundColor" type="ShopThemeColor"/>
+        <property name="footerNewsletterSectionTextColor" type="ShopThemeColor"/>
+        <property name="footerNewsletterSectionIconColor" type="ShopThemeColor"/>
+        <property name="footerLogoSectionBackgroundColor" type="ShopThemeColor"/>
+        <property name="footerLogoSectionTextColor" type="ShopThemeColor"/>
+        <property name="footerLogoSectionIconColor" type="ShopThemeColor"/>
+        <property name="footerNavigationSectionBackgroundColor" type="ShopThemeColor"/>
+        <property name="footerNavigationSectionTextColor" type="ShopThemeColor"/>
+        <property name="footerNavigationSectionIconColor" type="ShopThemeColor"/>
+        <property name="footerCopyrightSectionBackgroundColor" type="ShopThemeColor"/>
+        <property name="footerCopyrightSectionTextColor" type="ShopThemeColor"/>
+        <property name="footerCopyrightSectionIconColor" type="ShopThemeColor"/>
+
+        <property name="primaryButtonBackgroundColor" type="ShopThemeColor"/>
+        <property name="primaryButtonTextColor" type="ShopThemeColor"/>
+        <property name="primaryButtonIconColor" type="ShopThemeColor"/>
+
+        <property name="secondaryButtonBackgroundColor" type="ShopThemeColor"/>
+        <property name="secondaryButtonTextColor" type="ShopThemeColor"/>
+        <property name="secondaryButtonIconColor" type="ShopThemeColor"/>
+
+        <property name="alternativeButtonBackgroundColor" type="ShopThemeColor"/>
+        <property name="alternativeButtonTextColor" type="ShopThemeColor"/>
+        <property name="alternativeButtonIconColor" type="ShopThemeColor"/>
+
+        <property name="successButtonBackgroundColor" type="ShopThemeColor"/>
+        <property name="successButtonTextColor" type="ShopThemeColor"/>
+        <property name="successButtonIconColor" type="ShopThemeColor"/>
+
+    </transfer>
+
+    <transfer name="ShopThemeColor">
+        <property name="color" type="string"/>
+        <property name="isEnabled" type="bool"/>
     </transfer>
 
     <transfer name="ShopThemeCriteria">
