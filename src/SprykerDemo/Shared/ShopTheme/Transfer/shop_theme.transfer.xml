@@ -29,6 +29,50 @@
         <property name="buttonPrimaryColorEnabled" type="bool"/>
         <property name="buttonSecondaryColor" type="string"/>
         <property name="buttonSecondaryColorEnabled" type="bool"/>
+
+        <property name="headerTopBackgroundColor" type="string"/>
+        <property name="headerTopBackgroundColorEnabled" type="bool"/>
+        <property name="headerTopTextColor" type="string"/>
+        <property name="headerTopTextColorEnabled" type="bool"/>
+        <property name="headerTopIconColor" type="string"/>
+        <property name="headerTopIconColorEnabled" type="bool"/>
+        <property name="headerMainBackgroundColor" type="string"/>
+        <property name="headerMainBackgroundColorEnabled" type="bool"/>
+        <property name="headerMainTextColor" type="string"/>
+        <property name="headerMainTextColorEnabled" type="bool"/>
+        <property name="headerMainIconColor" type="string"/>
+        <property name="headerMainIconColorEnabled" type="bool"/>
+        <property name="headerBottomBackgroundColor" type="string"/>
+        <property name="headerBottomBackgroundColorEnabled" type="bool"/>
+        <property name="headerBottomTextColor" type="string"/>
+        <property name="headerBottomTextColorEnabled" type="bool"/>
+        <property name="headerBottomIconColor" type="string"/>
+        <property name="headerBottomIconColorEnabled" type="bool"/>
+        <property name="footerNewsletterSectionBackgroundColor" type="string"/>
+        <property name="footerNewsletterSectionBackgroundColorEnabled" type="bool"/>
+        <property name="footerNewsletterSectionTextColor" type="string"/>
+        <property name="footerNewsletterSectionTextColorEnabled" type="bool"/>
+        <property name="footerNewsletterSectionIconColor" type="string"/>
+        <property name="footerNewsletterSectionIconColorEnabled" type="bool"/>
+        <property name="footerLogoSectionBackgroundColor" type="string"/>
+        <property name="footerLogoSectionBackgroundColorEnabled" type="bool"/>
+        <property name="footerLogoSectionTextColor" type="string"/>
+        <property name="footerLogoSectionTextColorEnabled" type="bool"/>
+        <property name="footerLogoSectionIconColor" type="string"/>
+        <property name="footerLogoSectionIconColorEnabled" type="bool"/>
+        <property name="footerNavigationSectionBackgroundColor" type="string"/>
+        <property name="footerNavigationSectionBackgroundColorEnabled" type="bool"/>
+        <property name="footerNavigationSectionTextColor" type="string"/>
+        <property name="footerNavigationSectionTextColorEnabled" type="bool"/>
+        <property name="footerNavigationSectionIconColor" type="string"/>
+        <property name="footerNavigationSectionIconColorEnabled" type="bool"/>
+        <property name="footerCopyrightSectionBackgroundColor" type="string"/>
+        <property name="footerCopyrightSectionBackgroundColorEnabled" type="bool"/>
+        <property name="footerCopyrightSectionTextColor" type="string"/>
+        <property name="footerCopyrightSectionTextColorEnabled" type="bool"/>
+        <property name="footerCopyrightSectionIconColor" type="string"/>
+        <property name="footerCopyrightSectionIconColorEnabled" type="bool"/>
+
         <property name="backofficeThemeColor" type="string"/>
         <property name="backofficeThemeColorEnabled" type="bool"/>
         <property name="mpThemeColor" type="string"/>
