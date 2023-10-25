@@ -48,6 +48,7 @@
         <property name="headerBottomTextColorEnabled" type="bool"/>
         <property name="headerBottomIconColor" type="string"/>
         <property name="headerBottomIconColorEnabled" type="bool"/>
+
         <property name="footerNewsletterSectionBackgroundColor" type="string"/>
         <property name="footerNewsletterSectionBackgroundColorEnabled" type="bool"/>
         <property name="footerNewsletterSectionTextColor" type="string"/>
