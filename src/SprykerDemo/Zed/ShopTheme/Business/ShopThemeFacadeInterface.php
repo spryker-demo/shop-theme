@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\ActivateShopThemeActionResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeCriteriaTransfer;
 use Generated\Shared\Transfer\ShopThemeResponseTransfer;
 use Generated\Shared\Transfer\ShopThemeTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
 
 interface ShopThemeFacadeInterface
 {
@@ -50,18 +49,6 @@ interface ShopThemeFacadeInterface
      * @return array<int>
      */
     public function getShopThemeIds(ShopThemeCriteriaTransfer $shopThemeCriteriaTransfer): array;
-
-    /**
-     * Specification:
-     *  - Gets active theme for frontend for particular store.
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\ShopThemeTransfer|null
-     */
-    public function findActiveTheme(StoreTransfer $storeTransfer): ?ShopThemeTransfer;
 
     /**
      * Specification:

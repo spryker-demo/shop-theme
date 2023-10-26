@@ -12,8 +12,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerDemo\Service\UrlBuilder\UrlBuilderServiceInterface;
 use SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivator;
 use SprykerDemo\Zed\ShopTheme\Business\Activator\ShopThemeActivatorInterface;
-use SprykerDemo\Zed\ShopTheme\Business\Reader\ActiveThemeReader;
-use SprykerDemo\Zed\ShopTheme\Business\Reader\ActiveThemeReaderInterface;
 use SprykerDemo\Zed\ShopTheme\Business\Writer\Saver\ShopThemeLogoSaver;
 use SprykerDemo\Zed\ShopTheme\Business\Writer\Saver\ShopThemeLogoSaverInterface;
 use SprykerDemo\Zed\ShopTheme\Business\Writer\ShopThemeWriter;
@@ -47,16 +45,6 @@ class ShopThemeBusinessFactory extends AbstractBusinessFactory
         return new ShopThemeWriter(
             $this->createShopThemeLogoSaver(),
             $this->getEntityManager(),
-            $this->getRepository(),
-        );
-    }
-
-    /**
-     * @return \SprykerDemo\Zed\ShopTheme\Business\Reader\ActiveThemeReaderInterface
-     */
-    public function createActiveThemeReader(): ActiveThemeReaderInterface
-    {
-        return new ActiveThemeReader(
             $this->getRepository(),
         );
     }
