@@ -63,18 +63,16 @@
         <property name="primaryButtonBackgroundColor" type="ShopThemeColor"/>
         <property name="primaryButtonTextColor" type="ShopThemeColor"/>
         <property name="primaryButtonIconColor" type="ShopThemeColor"/>
-
-        <property name="secondaryButtonBackgroundColor" type="ShopThemeColor"/>
-        <property name="secondaryButtonTextColor" type="ShopThemeColor"/>
-        <property name="secondaryButtonIconColor" type="ShopThemeColor"/>
+        <property name="primaryButtonHoverBackgroundColor" type="ShopThemeColor"/>
+        <property name="primaryButtonHoverTextColor" type="ShopThemeColor"/>
+        <property name="primaryButtonHoverIconColor" type="ShopThemeColor"/>
 
         <property name="alternativeButtonBackgroundColor" type="ShopThemeColor"/>
         <property name="alternativeButtonTextColor" type="ShopThemeColor"/>
         <property name="alternativeButtonIconColor" type="ShopThemeColor"/>
-
-        <property name="successButtonBackgroundColor" type="ShopThemeColor"/>
-        <property name="successButtonTextColor" type="ShopThemeColor"/>
-        <property name="successButtonIconColor" type="ShopThemeColor"/>
+        <property name="alternativeButtonHoverBackgroundColor" type="ShopThemeColor"/>
+        <property name="alternativeButtonHoverTextColor" type="ShopThemeColor"/>
+        <property name="alternativeButtonHoverIconColor" type="ShopThemeColor"/>
     </transfer>
 
     <transfer name="ShopThemeColor">
