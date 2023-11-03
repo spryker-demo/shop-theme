@@ -38,6 +38,8 @@
 
     <transfer name="ShopThemeYves">
         <property name="themeMainColor" type="ShopThemeColor"/>
+        <property name="themeMainColorLighter" type="ShopThemeColor"/>
+        <property name="themeMainColorDarker" type="ShopThemeColor"/>
 
         <property name="headerTopBackgroundColor" type="ShopThemeColor"/>
         <property name="headerTopTextColor" type="ShopThemeColor"/>
