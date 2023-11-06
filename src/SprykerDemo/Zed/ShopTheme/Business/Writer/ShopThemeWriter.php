@@ -85,6 +85,33 @@ class ShopThemeWriter implements ShopThemeWriterInterface
     /**
      * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
      *
+     * @return \Generated\Shared\Transfer\ShopThemeResponseTransfer
+     */
+    public function duplicateShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeResponseTransfer
+    {
+        $shopThemeResponseTransfer = (new ShopThemeResponseTransfer())->setIsSuccess(true);
+
+        $shopThemeTransfer->setIdShopTheme(null);
+        $shopThemeData = $shopThemeTransfer->getShopThemeData();
+
+        try {
+            $this->shopThemeLogoSaver->duplicateShopThemeLogos($shopThemeData);
+
+            $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeTransfer) {
+                $this->executeSaveShopThemeTransaction($shopThemeTransfer);
+            });
+        } catch (Throwable $e) {
+            $this->getLogger()->error(static::SHOP_THEME_SAVE_ERROR_MESSAGE, ['exception' => $e]);
+            $shopThemeResponseTransfer->setIsSuccess(false)
+                ->setErrorMessage(static::SHOP_THEME_SAVE_ERROR_MESSAGE);
+        }
+
+        return $shopThemeResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
+     *
      * @return void
      */
     protected function executeSaveShopThemeTransaction(ShopThemeTransfer $shopThemeTransfer): void

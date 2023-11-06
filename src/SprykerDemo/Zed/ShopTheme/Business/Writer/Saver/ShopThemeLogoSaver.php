@@ -8,6 +8,7 @@
 namespace SprykerDemo\Zed\ShopTheme\Business\Writer\Saver;
 
 use Generated\Shared\Transfer\FileSystemContentTransfer;
+use Generated\Shared\Transfer\FileSystemCopyTransfer;
 use Generated\Shared\Transfer\FileSystemDeleteTransfer;
 use Generated\Shared\Transfer\FileTransfer;
 use Generated\Shared\Transfer\ShopThemeDataTransfer;
@@ -18,6 +19,11 @@ use SprykerDemo\Zed\ShopTheme\ShopThemeConfig;
 
 class ShopThemeLogoSaver implements ShopThemeLogoSaverInterface
 {
+    /**
+     * @var string
+     */
+    protected const UUID_4_REG_EXP = '/[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}/i';
+
     /**
      * @var \SprykerDemo\Zed\ShopTheme\ShopThemeConfig
      */
@@ -55,6 +61,31 @@ class ShopThemeLogoSaver implements ShopThemeLogoSaverInterface
         $shopThemeDataTransfer = $this->removeLogoFiles($shopThemeDataTransfer);
 
         return $this->saveLogoFiles($shopThemeDataTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeDataTransfer $shopThemeDataTransfer
+     *
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
+     */
+    public function duplicateShopThemeLogos(ShopThemeDataTransfer $shopThemeDataTransfer): ShopThemeDataTransfer
+    {
+        if ($shopThemeDataTransfer->getLogoUrl()) {
+            $logoFileUrl = $this->duplicateLogo($shopThemeDataTransfer->getLogoUrl());
+            $shopThemeDataTransfer->setLogoUrl($logoFileUrl);
+        }
+
+        if ($shopThemeDataTransfer->getMpLogoUrl()) {
+            $mpFileUrl = $this->duplicateLogo($shopThemeDataTransfer->getMpLogoUrl());
+            $shopThemeDataTransfer->setMpLogoUrl($mpFileUrl);
+        }
+
+        if ($shopThemeDataTransfer->getBackofficeLogoUrl()) {
+            $backofficeFileUrl = $this->duplicateLogo($shopThemeDataTransfer->getBackofficeLogoUrl());
+            $shopThemeDataTransfer->setBackofficeLogoUrl($backofficeFileUrl);
+        }
+
+        return $shopThemeDataTransfer;
     }
 
     /**
@@ -136,6 +167,24 @@ class ShopThemeLogoSaver implements ShopThemeLogoSaverInterface
         $fileSystemContentTransfer->setFileSystemName($this->config->getLogoFilesystemName());
         $fileSystemContentTransfer->setPath($filePath);
         $this->fileSystemService->delete($fileSystemContentTransfer);
+    }
+
+    /**
+     * @param string $originalLogoUrl
+     *
+     * @return string
+     */
+    protected function duplicateLogo(string $originalLogoUrl): string
+    {
+        $copyLogoUrl = preg_replace(static::UUID_4_REG_EXP, Uuid::uuid4()->toString(), $originalLogoUrl);
+        $fileSystemCopyTransfer = (new FileSystemCopyTransfer())
+            ->setSourcePath(basename($originalLogoUrl))
+            ->setFileSystemName($this->config->getLogoFilesystemName())
+            ->setDestinationPath(basename($copyLogoUrl));
+
+        $this->fileSystemService->copy($fileSystemCopyTransfer);
+
+        return $copyLogoUrl;
     }
 
     /**

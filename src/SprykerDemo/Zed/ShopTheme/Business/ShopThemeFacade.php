@@ -81,6 +81,20 @@ class ShopThemeFacade extends AbstractFacade implements ShopThemeFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
+     *
+     * @return \Generated\Shared\Transfer\ShopThemeResponseTransfer
+     */
+    public function duplicateShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeResponseTransfer
+    {
+        return $this->getFactory()->createShopThemeWriter()->duplicateShopTheme($shopThemeTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
      * @param int $idShopTheme
      *
      * @return void

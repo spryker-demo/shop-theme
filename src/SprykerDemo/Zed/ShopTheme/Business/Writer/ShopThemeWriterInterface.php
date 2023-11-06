@@ -18,4 +18,11 @@ interface ShopThemeWriterInterface
      * @return \Generated\Shared\Transfer\ShopThemeResponseTransfer
      */
     public function saveShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
+     *
+     * @return \Generated\Shared\Transfer\ShopThemeResponseTransfer
+     */
+    public function duplicateShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeResponseTransfer;
 }

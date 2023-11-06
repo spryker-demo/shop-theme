@@ -17,4 +17,11 @@ interface ShopThemeLogoSaverInterface
      * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
      */
     public function saveShopThemeLogos(ShopThemeDataTransfer $shopThemeDataTransfer): ShopThemeDataTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\ShopThemeDataTransfer $shopThemeDataTransfer
+     *
+     * @return \Generated\Shared\Transfer\ShopThemeDataTransfer
+     */
+    public function duplicateShopThemeLogos(ShopThemeDataTransfer $shopThemeDataTransfer): ShopThemeDataTransfer;
 }

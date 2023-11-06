@@ -64,6 +64,18 @@ interface ShopThemeFacadeInterface
 
     /**
      * Specification:
+     *  - Duplicates theme for frontend.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ShopThemeTransfer $shopThemeTransfer
+     *
+     * @return \Generated\Shared\Transfer\ShopThemeResponseTransfer
+     */
+    public function duplicateShopTheme(ShopThemeTransfer $shopThemeTransfer): ShopThemeResponseTransfer;
+
+    /**
+     * Specification:
      *  - Deletes shop theme by provided id.
      *
      * @api
