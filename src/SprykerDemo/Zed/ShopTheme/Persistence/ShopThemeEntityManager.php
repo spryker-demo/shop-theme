@@ -50,6 +50,7 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
         $this->getFactory()
             ->createShopThemeQuery()
             ->filterByIdShopTheme($idShopTheme)
+            ->find()
             ->delete();
     }
 

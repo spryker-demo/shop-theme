@@ -49,4 +49,14 @@ class ShopThemeConfig extends AbstractBundleConfig
     {
         return [];
     }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getDefaultLogoPath(): string
+    {
+        return 'industry-logo';
+    }
 }
