@@ -70,7 +70,7 @@ class ShopThemeWriter implements ShopThemeWriterInterface
         try {
             $this->shopThemeLogoSaver->saveShopThemeLogos($shopThemeData);
 
-            $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeTransfer) {
+            $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeTransfer): void {
                 $this->executeSaveShopThemeTransaction($shopThemeTransfer);
             });
         } catch (Throwable $e) {
@@ -97,7 +97,7 @@ class ShopThemeWriter implements ShopThemeWriterInterface
         try {
             $this->shopThemeLogoSaver->duplicateShopThemeLogos($shopThemeData);
 
-            $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeTransfer) {
+            $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeTransfer): void {
                 $this->executeSaveShopThemeTransaction($shopThemeTransfer);
             });
         } catch (Throwable $e) {
