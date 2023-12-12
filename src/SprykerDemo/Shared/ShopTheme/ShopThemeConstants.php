@@ -15,5 +15,5 @@ interface ShopThemeConstants
     /**
      * @var string
      */
-    public const SHOP_THEME_DEFAULT_LOGO_PATH = 'SHOP_THEME:DEFAULT_LOGO_PATH';
+    public const DEFAULT_LOGO_PATH = 'SHOP_THEME:DEFAULT_LOGO_PATH';
 }
