@@ -58,6 +58,6 @@ class ShopThemeConfig extends AbstractBundleConfig
      */
     public function getDefaultLogoPath(): string
     {
-        return $this->get(ShopThemeConstants::SHOP_THEME_DEFAULT_LOGO_PATH);
+        return $this->get(ShopThemeConstants::SHOP_THEME_DEFAULT_LOGO_PATH, '');
     }
 }
