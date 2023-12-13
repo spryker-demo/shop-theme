@@ -10,6 +10,7 @@ namespace SprykerDemo\Zed\ShopTheme;
 use Spryker\Shared\Config\Config;
 use Spryker\Shared\FileSystem\FileSystemConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
+use SprykerDemo\Shared\ShopTheme\ShopThemeConstants;
 
 class ShopThemeConfig extends AbstractBundleConfig
 {
@@ -48,5 +49,15 @@ class ShopThemeConfig extends AbstractBundleConfig
     public function getFileSystemWriterConfig(): array
     {
         return [];
+    }
+
+    /**
+     * @api
+     *
+     * @return string
+     */
+    public function getDefaultLogoPath(): string
+    {
+        return $this->get(ShopThemeConstants::DEFAULT_LOGO_PATH, '');
     }
 }

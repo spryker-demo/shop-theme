@@ -163,10 +163,27 @@ class ShopThemeLogoSaver implements ShopThemeLogoSaverInterface
      */
     protected function deleteLogoFile(string $filePath): void
     {
+        if ($this->isDefaultLogo($filePath) === true) {
+            return;
+        }
         $fileSystemContentTransfer = new FileSystemDeleteTransfer();
         $fileSystemContentTransfer->setFileSystemName($this->config->getLogoFilesystemName());
         $fileSystemContentTransfer->setPath($filePath);
         $this->fileSystemService->delete($fileSystemContentTransfer);
+    }
+
+    /**
+     * @param string $filePath
+     *
+     * @return bool
+     */
+    protected function isDefaultLogo(string $filePath): bool
+    {
+        $basePath = pathinfo($filePath, PATHINFO_DIRNAME);
+        $directoryParts = explode('/', $basePath);
+        $logoDirectory = end($directoryParts);
+
+        return $logoDirectory === $this->config->getDefaultLogoPath();
     }
 
     /**
@@ -176,6 +193,10 @@ class ShopThemeLogoSaver implements ShopThemeLogoSaverInterface
      */
     protected function duplicateLogo(string $originalLogoUrl): string
     {
+        if ($this->isDefaultLogo($originalLogoUrl) === true) {
+            return $originalLogoUrl;
+        }
+
         $copyLogoUrl = preg_replace(static::UUID_4_REG_EXP, Uuid::uuid4()->toString(), $originalLogoUrl);
         $fileSystemCopyTransfer = (new FileSystemCopyTransfer())
             ->setSourcePath(basename($originalLogoUrl))
