@@ -80,7 +80,10 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
     {
         $shopThemeQuery = $this->applyFilters($shopThemeCriteriaTransfer, $this->getFactory()->createShopThemeQuery());
 
-        return $shopThemeQuery->find()->getColumnValues();
+        /** @var \Propel\Runtime\Collection\ObjectCollection $shopThemeEntities */
+        $shopThemeEntities = $shopThemeQuery->find();
+
+        return $shopThemeEntities->getColumnValues();
     }
 
     /**
@@ -94,7 +97,10 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
             ->createShopThemeStoreQuery()
             ->filterByFkShopTheme($shopThemeId);
 
-        return $shopThemeStoreQuery->find()->getColumnValues(static::COLUMN_NAME_FK_STORE);
+        /** @var \Propel\Runtime\Collection\ObjectCollection $shopThemeStoreEntities */
+        $shopThemeStoreEntities = $shopThemeStoreQuery->find();
+
+        return $shopThemeStoreEntities->getColumnValues(static::COLUMN_NAME_FK_STORE);
     }
 
     /**

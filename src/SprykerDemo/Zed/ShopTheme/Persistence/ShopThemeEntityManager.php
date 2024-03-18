@@ -47,11 +47,13 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
      */
     public function deleteShopTheme(int $idShopTheme): void
     {
-        $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ObjectCollection $shopThemeEntities */
+        $shopThemeEntities = $this->getFactory()
             ->createShopThemeQuery()
             ->filterByIdShopTheme($idShopTheme)
-            ->find()
-            ->delete();
+            ->find();
+
+        $shopThemeEntities->delete();
     }
 
     /**
@@ -122,11 +124,13 @@ class ShopThemeEntityManager extends AbstractEntityManager implements ShopThemeE
             return;
         }
 
-        $this->getFactory()
+        /** @var \Propel\Runtime\Collection\ObjectCollection $shopThemeStoreEntities */
+        $shopThemeStoreEntities = $this->getFactory()
             ->createShopThemeStoreQuery()
             ->filterByFkShopTheme($idShopTheme)
             ->filterByFkStore_In($storeIdsToDelete)
-            ->find()
-            ->delete();
+            ->find();
+
+        $shopThemeStoreEntities->delete();
     }
 }
