@@ -32,62 +32,37 @@
 
     <transfer name="ShopThemeMerchantPortal">
         <property name="mpThemeColor" type="ShopThemeColor"/>
-        <property name="mpThemeDarkColor" type="ShopThemeColor"/>
-        <property name="mpThemeLightColor" type="ShopThemeColor"/>
     </transfer>
 
     <transfer name="ShopThemeYves">
         <property name="themeMainColor" type="ShopThemeColor"/>
-        <property name="themeMainColorLighter" type="ShopThemeColor"/>
-        <property name="themeMainColorDarker" type="ShopThemeColor"/>
         <property name="themeAltColor" type="ShopThemeColor"/>
 
         <property name="headerTopBackgroundColor" type="ShopThemeColor"/>
         <property name="headerTopTextColor" type="ShopThemeColor"/>
-        <property name="headerTopIconColor" type="ShopThemeColor"/>
         <property name="headerMainBackgroundColor" type="ShopThemeColor"/>
         <property name="headerMainTextColor" type="ShopThemeColor"/>
-        <property name="headerMainIconColor" type="ShopThemeColor"/>
         <property name="headerBottomBackgroundColor" type="ShopThemeColor"/>
         <property name="headerBottomTextColor" type="ShopThemeColor"/>
-        <property name="headerBottomIconColor" type="ShopThemeColor"/>
 
         <property name="footerNewsletterSectionBackgroundColor" type="ShopThemeColor"/>
         <property name="footerNewsletterSectionTextColor" type="ShopThemeColor"/>
-        <property name="footerNewsletterSectionIconColor" type="ShopThemeColor"/>
         <property name="footerLogoSectionBackgroundColor" type="ShopThemeColor"/>
         <property name="footerLogoSectionTextColor" type="ShopThemeColor"/>
-        <property name="footerLogoSectionIconColor" type="ShopThemeColor"/>
         <property name="footerNavigationSectionBackgroundColor" type="ShopThemeColor"/>
         <property name="footerNavigationSectionTextColor" type="ShopThemeColor"/>
-        <property name="footerNavigationSectionIconColor" type="ShopThemeColor"/>
         <property name="footerCopyrightSectionBackgroundColor" type="ShopThemeColor"/>
         <property name="footerCopyrightSectionTextColor" type="ShopThemeColor"/>
-        <property name="footerCopyrightSectionIconColor" type="ShopThemeColor"/>
 
         <property name="primaryButtonBackgroundColor" type="ShopThemeColor"/>
         <property name="primaryButtonTextColor" type="ShopThemeColor"/>
-        <property name="primaryButtonIconColor" type="ShopThemeColor"/>
-        <property name="primaryButtonHoverBackgroundColor" type="ShopThemeColor"/>
-        <property name="primaryButtonHoverTextColor" type="ShopThemeColor"/>
-        <property name="primaryButtonHoverIconColor" type="ShopThemeColor"/>
-
-        <property name="alternativeButtonBackgroundColor" type="ShopThemeColor"/>
-        <property name="alternativeButtonTextColor" type="ShopThemeColor"/>
-        <property name="alternativeButtonIconColor" type="ShopThemeColor"/>
-        <property name="alternativeButtonHoverBackgroundColor" type="ShopThemeColor"/>
-        <property name="alternativeButtonHoverTextColor" type="ShopThemeColor"/>
-        <property name="alternativeButtonHoverIconColor" type="ShopThemeColor"/>
 
         <property name="notificationSuccessBackgroundColor" type="ShopThemeColor"/>
         <property name="notificationSuccessTextColor" type="ShopThemeColor"/>
-        <property name="notificationSuccessIconColor" type="ShopThemeColor"/>
         <property name="notificationWarningBackgroundColor" type="ShopThemeColor"/>
         <property name="notificationWarningTextColor" type="ShopThemeColor"/>
-        <property name="notificationWarningIconColor" type="ShopThemeColor"/>
         <property name="notificationAlertBackgroundColor" type="ShopThemeColor"/>
         <property name="notificationAlertTextColor" type="ShopThemeColor"/>
-        <property name="notificationAlertIconColor" type="ShopThemeColor"/>
     </transfer>
 
     <transfer name="ShopThemeColor">
