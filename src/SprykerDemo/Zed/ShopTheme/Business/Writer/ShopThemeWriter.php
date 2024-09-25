@@ -96,6 +96,7 @@ class ShopThemeWriter implements ShopThemeWriterInterface
 
         try {
             $this->shopThemeLogoSaver->duplicateShopThemeLogos($shopThemeData);
+            $this->shopThemeLogoSaver->saveShopThemeLogos($shopThemeData);
 
             $this->getTransactionHandler()->handleTransaction(function () use ($shopThemeTransfer): void {
                 $this->executeSaveShopThemeTransaction($shopThemeTransfer);

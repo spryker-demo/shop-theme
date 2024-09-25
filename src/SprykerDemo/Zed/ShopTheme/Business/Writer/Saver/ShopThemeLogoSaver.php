@@ -70,17 +70,17 @@ class ShopThemeLogoSaver implements ShopThemeLogoSaverInterface
      */
     public function duplicateShopThemeLogos(ShopThemeDataTransfer $shopThemeDataTransfer): ShopThemeDataTransfer
     {
-        if ($shopThemeDataTransfer->getLogoUrl()) {
+        if ($shopThemeDataTransfer->getLogoUrl() && !$shopThemeDataTransfer->getLogoFile()) {
             $logoFileUrl = $this->duplicateLogo($shopThemeDataTransfer->getLogoUrl());
             $shopThemeDataTransfer->setLogoUrl($logoFileUrl);
         }
 
-        if ($shopThemeDataTransfer->getMpLogoUrl()) {
+        if ($shopThemeDataTransfer->getMpLogoUrl() && !$shopThemeDataTransfer->getMpLogoFile()) {
             $mpFileUrl = $this->duplicateLogo($shopThemeDataTransfer->getMpLogoUrl());
             $shopThemeDataTransfer->setMpLogoUrl($mpFileUrl);
         }
 
-        if ($shopThemeDataTransfer->getBackofficeLogoUrl()) {
+        if ($shopThemeDataTransfer->getBackofficeLogoUrl() && !$shopThemeDataTransfer->getBackofficeLogoFile()) {
             $backofficeFileUrl = $this->duplicateLogo($shopThemeDataTransfer->getBackofficeLogoUrl());
             $shopThemeDataTransfer->setBackofficeLogoUrl($backofficeFileUrl);
         }
