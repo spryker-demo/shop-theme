@@ -155,6 +155,15 @@ class ShopThemeRepository extends AbstractRepository implements ShopThemeReposit
                 ->endUse();
         }
 
+        if ($shopThemeCriteriaTransfer->getLimit()) {
+            $shopThemeQuery->limit($shopThemeCriteriaTransfer->getLimit());
+        }
+
+        if ($shopThemeCriteriaTransfer->getOffset()) {
+            $shopThemeQuery->offset($shopThemeCriteriaTransfer->getOffset());
+            $shopThemeQuery->orderByIdShopTheme();
+        }
+
         return $shopThemeQuery;
     }
 
