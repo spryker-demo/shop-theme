@@ -63,6 +63,7 @@
         <property name="notificationWarningTextColor" type="ShopThemeColor"/>
         <property name="notificationAlertBackgroundColor" type="ShopThemeColor"/>
         <property name="notificationAlertTextColor" type="ShopThemeColor"/>
+        <property name="css" type="string"/>
     </transfer>
 
     <transfer name="ShopThemeColor">
