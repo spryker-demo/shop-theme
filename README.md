@@ -1,6 +1,5 @@
 # ShopTheme Module
-[![Latest Stable Version](https://poser.pugx.org/spryker-demo/shop-theme/v/stable.svg)](https://packagist.org/packages/spryker-demo/shop-theme)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg)](https://php.net/)
 
 Provides logic for saving/reading/validating shop themes.
 
@@ -9,7 +8,3 @@ Provides logic for saving/reading/validating shop themes.
 ```
 composer require spryker-demo/shop-theme
 ```
-
-## Documentation
-
-[Spryker Documentation](https://academy.spryker.com/developing_with_spryker/module_guide/modules.html)
