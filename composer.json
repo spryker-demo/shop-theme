@@ -9,7 +9,7 @@
         "spryker/acl-merchant-portal-extension": "^1.0.0",
         "spryker/config": "^3.6.0",
         "spryker/file-system": "^2.0.0",
-        "spryker/kernel": "^3.70.0",
+        "spryker/kernel": "^3.75.0",
         "spryker/log": "^3.0.0",
         "spryker/propel-orm": "^1.17.0",
         "spryker/ramsey-uuid": "^1.0.0 || ^2.0.0",
